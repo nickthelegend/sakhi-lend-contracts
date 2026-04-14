@@ -1,0 +1,864 @@
+#pragma version 11
+#pragma typetrack false
+
+// @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
+main:
+    intcblock 0 1 4 8 1000001 105120000000
+    bytecblock "usdcAssetId" "b" "isPaused" "d" "creator" "reserveBalance" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "DEPOSIT:"
+    // smart_contracts/yield_vault/contract.algo.ts:21
+    // export class YieldVault extends Contract {
+    txn OnCompletion
+    !
+    assert // OnCompletion must be NoOp
+    txn ApplicationID
+    bz main_create_NoOp@11
+    pushbytess 0xa0cadf8a 0x539d0c8a 0x8685c687 0x21f1ddff 0x4fc1f9ad 0xdaef9d74 0xb417a864 // method "bootstrap(uint64)void", method "depositFirst(axfer,pay)void", method "depositMore(axfer)void", method "withdraw(uint64)void", method "fundReserves(axfer)void", method "setPause(bool)void", method "getBalance(address)uint64"
+    txna ApplicationArgs 0
+    match bootstrap depositFirst depositMore withdraw fundReserves setPause getBalance
+    err
+
+main_create_NoOp@11:
+    // smart_contracts/yield_vault/contract.algo.ts:21
+    // export class YieldVault extends Contract {
+    pushbytes 0xb8447b36 // method "createApplication()void"
+    txna ApplicationArgs 0
+    match createApplication
+    err
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.createApplication[routing]() -> void:
+createApplication:
+    // smart_contracts/yield_vault/contract.algo.ts:23
+    // public creator = GlobalState<Account>()
+    bytec 4 // "creator"
+    // smart_contracts/yield_vault/contract.algo.ts:39
+    // this.creator.value = Txn.sender
+    txn Sender
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:29
+    // public isPaused = GlobalState<boolean>()
+    bytec_2 // "isPaused"
+    // smart_contracts/yield_vault/contract.algo.ts:40
+    // this.isPaused.value = false
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:27
+    // public reserveBalance = GlobalState<uint64>()
+    bytec 5 // "reserveBalance"
+    // smart_contracts/yield_vault/contract.algo.ts:41
+    // this.reserveBalance.value = Uint64(0)
+    intc_0 // 0
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:38
+    // public createApplication(): void {
+    intc_1 // 1
+    return
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.bootstrap[routing]() -> void:
+bootstrap:
+    // smart_contracts/yield_vault/contract.algo.ts:48
+    // public bootstrap(asset: Asset): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_3 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    // smart_contracts/yield_vault/contract.algo.ts:49
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:23
+    // public creator = GlobalState<Account>()
+    bytec 4 // "creator"
+    // smart_contracts/yield_vault/contract.algo.ts:49
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz bootstrap_bool_true@3
+    txn Sender
+    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz bootstrap_bool_false@4
+
+bootstrap_bool_true@3:
+    intc_1 // 1
+
+bootstrap_bool_merge@5:
+    // smart_contracts/yield_vault/contract.algo.ts:49
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    assert // Admin only
+    // smart_contracts/yield_vault/contract.algo.ts:50
+    // assert(!this.usdcAssetId.hasValue, 'Already bootstrapped')
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:50
+    // assert(!this.usdcAssetId.hasValue, 'Already bootstrapped')
+    app_global_get_ex
+    bury 1
+    !
+    assert // Already bootstrapped
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:52
+    // this.usdcAssetId.value = asset.id
+    dig 1
+    dup
+    cover 2
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:55-61
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: asset,
+    //     assetAmount: 0,
+    //     assetReceiver: Global.currentApplicationAddress,
+    //   })
+    //   .submit()
+    itxn_begin
+    // smart_contracts/yield_vault/contract.algo.ts:59
+    // assetReceiver: Global.currentApplicationAddress,
+    global CurrentApplicationAddress
+    itxn_field AssetReceiver
+    // smart_contracts/yield_vault/contract.algo.ts:58
+    // assetAmount: 0,
+    intc_0 // 0
+    itxn_field AssetAmount
+    itxn_field XferAsset
+    // smart_contracts/yield_vault/contract.algo.ts:55-60
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: asset,
+    //     assetAmount: 0,
+    //     assetReceiver: Global.currentApplicationAddress,
+    //   })
+    intc_2 // 4
+    itxn_field TypeEnum
+    intc_0 // 0
+    itxn_field Fee
+    // smart_contracts/yield_vault/contract.algo.ts:55-61
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: asset,
+    //     assetAmount: 0,
+    //     assetReceiver: Global.currentApplicationAddress,
+    //   })
+    //   .submit()
+    itxn_submit
+    // smart_contracts/yield_vault/contract.algo.ts:63
+    // log('Vault bootstrapped')
+    pushbytes "Vault bootstrapped"
+    log
+    // smart_contracts/yield_vault/contract.algo.ts:48
+    // public bootstrap(asset: Asset): void {
+    intc_1 // 1
+    return
+
+bootstrap_bool_false@4:
+    intc_0 // 0
+    b bootstrap_bool_merge@5
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.depositFirst[routing]() -> void:
+depositFirst:
+    // smart_contracts/yield_vault/contract.algo.ts:70
+    // public depositFirst(axfer: gtxn.AssetTransferTxn, mbrPayment: gtxn.PaymentTxn): void {
+    txn GroupIndex
+    pushint 2 // 2
+    -
+    dup
+    gtxns TypeEnum
+    intc_2 // axfer
+    ==
+    assert // transaction type is axfer
+    txn GroupIndex
+    intc_1 // 1
+    -
+    dup
+    gtxns TypeEnum
+    intc_1 // pay
+    ==
+    assert // transaction type is pay
+    // smart_contracts/yield_vault/contract.algo.ts:71
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:29
+    // public isPaused = GlobalState<boolean>()
+    bytec_2 // "isPaused"
+    // smart_contracts/yield_vault/contract.algo.ts:71
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    app_global_get_ex
+    assert // check GlobalState exists
+    !
+    assert // Protocol is paused
+    // smart_contracts/yield_vault/contract.algo.ts:72
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    dig 1
+    gtxns XferAsset
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:72
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    assert // Invalid asset
+    // smart_contracts/yield_vault/contract.algo.ts:73
+    // assert(axfer.assetReceiver === Global.currentApplicationAddress, 'Must deposit to vault')
+    dig 1
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert // Must deposit to vault
+    // smart_contracts/yield_vault/contract.algo.ts:75
+    // assert(axfer.assetAmount >= MIN_DEPOSIT, 'Below min deposit')
+    swap
+    gtxns AssetAmount
+    dup
+    intc 4 // 1000001
+    >=
+    assert // Below min deposit
+    // smart_contracts/yield_vault/contract.algo.ts:77
+    // const sender = Txn.sender
+    txn Sender
+    // smart_contracts/yield_vault/contract.algo.ts:32
+    // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
+    bytec_3 // "d"
+    dig 1
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:78
+    // assert(!this.deposits(sender).exists, 'User already exists')
+    dup
+    box_len
+    bury 1
+    !
+    assert // User already exists
+    // smart_contracts/yield_vault/contract.algo.ts:82
+    // assert(mbrPayment.receiver === Global.currentApplicationAddress, 'MBR payment to vault')
+    dig 3
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert // MBR payment to vault
+    // smart_contracts/yield_vault/contract.algo.ts:83
+    // assert(mbrPayment.amount >= BOX_MBR * 2, 'Insufficient MBR payment')
+    uncover 3
+    gtxns Amount
+    pushint 257000 // 257000
+    >=
+    assert // Insufficient MBR payment
+    // smart_contracts/yield_vault/contract.algo.ts:86
+    // this.deposits(sender).value = currentAmount + axfer.assetAmount
+    uncover 2
+    itob
+    swap
+    dig 1
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:87
+    // this.lastBlocks(sender).value = Global.round
+    global Round
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    uncover 3
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:87
+    // this.lastBlocks(sender).value = Global.round
+    swap
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:89
+    // log(op.concat(Bytes('DEPOSIT:'), op.itob(axfer.assetAmount)))
+    bytec 7 // "DEPOSIT:"
+    swap
+    concat
+    log
+    // smart_contracts/yield_vault/contract.algo.ts:70
+    // public depositFirst(axfer: gtxn.AssetTransferTxn, mbrPayment: gtxn.PaymentTxn): void {
+    intc_1 // 1
+    return
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.depositMore[routing]() -> void:
+depositMore:
+    // smart_contracts/yield_vault/contract.algo.ts:95
+    // public depositMore(axfer: gtxn.AssetTransferTxn): void {
+    txn GroupIndex
+    intc_1 // 1
+    -
+    dup
+    gtxns TypeEnum
+    intc_2 // axfer
+    ==
+    assert // transaction type is axfer
+    // smart_contracts/yield_vault/contract.algo.ts:96
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:29
+    // public isPaused = GlobalState<boolean>()
+    bytec_2 // "isPaused"
+    // smart_contracts/yield_vault/contract.algo.ts:96
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    app_global_get_ex
+    assert // check GlobalState exists
+    !
+    assert // Protocol is paused
+    // smart_contracts/yield_vault/contract.algo.ts:97
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    dup
+    gtxns XferAsset
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:97
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    assert // Invalid asset
+    // smart_contracts/yield_vault/contract.algo.ts:98
+    // assert(axfer.assetReceiver === Global.currentApplicationAddress, 'Must deposit to vault')
+    dup
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert // Must deposit to vault
+    // smart_contracts/yield_vault/contract.algo.ts:100
+    // assert(axfer.assetAmount >= MIN_DEPOSIT, 'Below min deposit')
+    gtxns AssetAmount
+    dup
+    intc 4 // 1000001
+    >=
+    assert // Below min deposit
+    // smart_contracts/yield_vault/contract.algo.ts:102
+    // const sender = Txn.sender
+    txn Sender
+    // smart_contracts/yield_vault/contract.algo.ts:32
+    // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
+    bytec_3 // "d"
+    dig 1
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:103
+    // assert(this.deposits(sender).exists, 'User does not exist')
+    dup
+    box_len
+    bury 1
+    assert // User does not exist
+    // smart_contracts/yield_vault/contract.algo.ts:105
+    // this.accrueYield(sender)
+    dig 1
+    callsub accrueYield
+    // smart_contracts/yield_vault/contract.algo.ts:107
+    // const currentAmount = this.deposits(sender).value
+    dup
+    box_get
+    assert // Box must have value
+    btoi
+    // smart_contracts/yield_vault/contract.algo.ts:108
+    // this.deposits(sender).value = currentAmount + axfer.assetAmount
+    dig 3
+    +
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:109
+    // this.lastBlocks(sender).value = Global.round
+    global Round
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    uncover 2
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:109
+    // this.lastBlocks(sender).value = Global.round
+    swap
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:111
+    // log(op.concat(Bytes('DEPOSIT:'), op.itob(axfer.assetAmount)))
+    itob
+    bytec 7 // "DEPOSIT:"
+    swap
+    concat
+    log
+    // smart_contracts/yield_vault/contract.algo.ts:95
+    // public depositMore(axfer: gtxn.AssetTransferTxn): void {
+    intc_1 // 1
+    return
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.withdraw[routing]() -> void:
+withdraw:
+    // smart_contracts/yield_vault/contract.algo.ts:117
+    // public withdraw(amount: uint64): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_3 // 8
+    ==
+    assert // invalid number of bytes for arc4.uint64
+    btoi
+    // smart_contracts/yield_vault/contract.algo.ts:118
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:29
+    // public isPaused = GlobalState<boolean>()
+    bytec_2 // "isPaused"
+    // smart_contracts/yield_vault/contract.algo.ts:118
+    // assert(!this.isPaused.value, 'Protocol is paused')
+    app_global_get_ex
+    assert // check GlobalState exists
+    !
+    assert // Protocol is paused
+    // smart_contracts/yield_vault/contract.algo.ts:119
+    // const sender = Txn.sender
+    txn Sender
+    // smart_contracts/yield_vault/contract.algo.ts:121
+    // this.accrueYield(sender)
+    dup
+    callsub accrueYield
+    // smart_contracts/yield_vault/contract.algo.ts:32
+    // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
+    bytec_3 // "d"
+    dig 1
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:123
+    // const currentBalance = this.deposits(sender).get({ default: Uint64(0) })
+    dup
+    box_get
+    swap
+    btoi
+    intc_0 // 0
+    swap
+    uncover 2
+    select
+    // smart_contracts/yield_vault/contract.algo.ts:124
+    // assert(currentBalance >= amount, 'Insufficient balance')
+    dup
+    dig 4
+    >=
+    assert // Insufficient balance
+    // smart_contracts/yield_vault/contract.algo.ts:126
+    // this.deposits(sender).value = currentBalance - amount
+    dig 3
+    -
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:127
+    // this.lastBlocks(sender).value = Global.round
+    global Round
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    dig 2
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:127
+    // this.lastBlocks(sender).value = Global.round
+    swap
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:130-136
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: Asset(this.usdcAssetId.value),
+    //     assetAmount: amount,
+    //     assetReceiver: sender,
+    //   })
+    //   .submit()
+    itxn_begin
+    // smart_contracts/yield_vault/contract.algo.ts:132
+    // xferAsset: Asset(this.usdcAssetId.value),
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:132
+    // xferAsset: Asset(this.usdcAssetId.value),
+    app_global_get_ex
+    assert // check GlobalState exists
+    swap
+    itxn_field AssetReceiver
+    dig 1
+    itxn_field AssetAmount
+    itxn_field XferAsset
+    // smart_contracts/yield_vault/contract.algo.ts:130-135
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: Asset(this.usdcAssetId.value),
+    //     assetAmount: amount,
+    //     assetReceiver: sender,
+    //   })
+    intc_2 // 4
+    itxn_field TypeEnum
+    intc_0 // 0
+    itxn_field Fee
+    // smart_contracts/yield_vault/contract.algo.ts:130-136
+    // itxn
+    //   .assetTransfer({
+    //     xferAsset: Asset(this.usdcAssetId.value),
+    //     assetAmount: amount,
+    //     assetReceiver: sender,
+    //   })
+    //   .submit()
+    itxn_submit
+    // smart_contracts/yield_vault/contract.algo.ts:138
+    // log(op.concat(Bytes('WITHDRAW:'), op.itob(amount)))
+    itob
+    pushbytes "WITHDRAW:"
+    swap
+    concat
+    log
+    // smart_contracts/yield_vault/contract.algo.ts:117
+    // public withdraw(amount: uint64): void {
+    intc_1 // 1
+    return
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.fundReserves[routing]() -> void:
+fundReserves:
+    // smart_contracts/yield_vault/contract.algo.ts:144
+    // public fundReserves(axfer: gtxn.AssetTransferTxn): void {
+    txn GroupIndex
+    intc_1 // 1
+    -
+    dup
+    gtxns TypeEnum
+    intc_2 // axfer
+    ==
+    assert // transaction type is axfer
+    // smart_contracts/yield_vault/contract.algo.ts:145
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:23
+    // public creator = GlobalState<Account>()
+    bytec 4 // "creator"
+    // smart_contracts/yield_vault/contract.algo.ts:145
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz fundReserves_bool_true@3
+    txn Sender
+    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz fundReserves_bool_false@4
+
+fundReserves_bool_true@3:
+    intc_1 // 1
+
+fundReserves_bool_merge@5:
+    // smart_contracts/yield_vault/contract.algo.ts:145
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    assert // Admin only
+    // smart_contracts/yield_vault/contract.algo.ts:146
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    dupn 2
+    gtxns XferAsset
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:25
+    // public usdcAssetId = GlobalState<uint64>()
+    bytec_0 // "usdcAssetId"
+    // smart_contracts/yield_vault/contract.algo.ts:146
+    // assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    assert // Invalid asset
+    // smart_contracts/yield_vault/contract.algo.ts:147
+    // assert(axfer.assetReceiver === Global.currentApplicationAddress, 'Must deposit to vault')
+    dup
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert // Must deposit to vault
+    // smart_contracts/yield_vault/contract.algo.ts:149
+    // this.reserveBalance.value = this.reserveBalance.value + axfer.assetAmount
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:27
+    // public reserveBalance = GlobalState<uint64>()
+    bytec 5 // "reserveBalance"
+    // smart_contracts/yield_vault/contract.algo.ts:149
+    // this.reserveBalance.value = this.reserveBalance.value + axfer.assetAmount
+    app_global_get_ex
+    assert // check GlobalState exists
+    swap
+    gtxns AssetAmount
+    +
+    // smart_contracts/yield_vault/contract.algo.ts:27
+    // public reserveBalance = GlobalState<uint64>()
+    bytec 5 // "reserveBalance"
+    // smart_contracts/yield_vault/contract.algo.ts:149
+    // this.reserveBalance.value = this.reserveBalance.value + axfer.assetAmount
+    swap
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:150
+    // log('RESERVES_FUNDED')
+    pushbytes "RESERVES_FUNDED"
+    log
+    // smart_contracts/yield_vault/contract.algo.ts:144
+    // public fundReserves(axfer: gtxn.AssetTransferTxn): void {
+    intc_1 // 1
+    return
+
+fundReserves_bool_false@4:
+    intc_0 // 0
+    b fundReserves_bool_merge@5
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.setPause[routing]() -> void:
+setPause:
+    // smart_contracts/yield_vault/contract.algo.ts:156
+    // public setPause(paused: boolean): void {
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1 // 1
+    ==
+    assert // invalid number of bytes for arc4.bool
+    intc_0 // 0
+    getbit
+    // smart_contracts/yield_vault/contract.algo.ts:157
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:23
+    // public creator = GlobalState<Account>()
+    bytec 4 // "creator"
+    // smart_contracts/yield_vault/contract.algo.ts:157
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz setPause_bool_true@3
+    txn Sender
+    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz setPause_bool_false@4
+
+setPause_bool_true@3:
+    intc_1 // 1
+
+setPause_bool_merge@5:
+    // smart_contracts/yield_vault/contract.algo.ts:157
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    assert // Admin only
+    // smart_contracts/yield_vault/contract.algo.ts:29
+    // public isPaused = GlobalState<boolean>()
+    bytec_2 // "isPaused"
+    // smart_contracts/yield_vault/contract.algo.ts:158
+    // this.isPaused.value = paused
+    dig 1
+    app_global_put
+    // smart_contracts/yield_vault/contract.algo.ts:156
+    // public setPause(paused: boolean): void {
+    intc_1 // 1
+    return
+
+setPause_bool_false@4:
+    intc_0 // 0
+    b setPause_bool_merge@5
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.getBalance[routing]() -> void:
+getBalance:
+    // smart_contracts/yield_vault/contract.algo.ts:164
+    // public getBalance(user: Account): uint64 {
+    txna ApplicationArgs 1
+    dup
+    len
+    pushint 32 // 32
+    ==
+    assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
+    // smart_contracts/yield_vault/contract.algo.ts:32
+    // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
+    bytec_3 // "d"
+    dig 1
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:165
+    // const amount = this.deposits(user).get({ default: Uint64(0) })
+    box_get
+    swap
+    btoi
+    intc_0 // 0
+    swap
+    uncover 2
+    select
+    dup
+    uncover 2
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    swap
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:166
+    // const lastBlock = this.lastBlocks(user).get({ default: Global.round })
+    global Round
+    swap
+    box_get
+    swap
+    btoi
+    swap
+    select
+    // smart_contracts/yield_vault/contract.algo.ts:167
+    // const blocksElapsed = Uint64(Global.round - lastBlock)
+    global Round
+    swap
+    -
+    swap
+    // smart_contracts/yield_vault/contract.algo.ts:169
+    // if (amount > 0 && blocksElapsed > 0) {
+    bz getBalance_after_if_else@4
+    dup
+    bz getBalance_after_if_else@4
+    // smart_contracts/yield_vault/contract.algo.ts:206
+    // const prod: uint64 = amount * YIELD_BPS
+    dig 1
+    dup
+    pushint 600 // 600
+    *
+    // smart_contracts/yield_vault/contract.algo.ts:207
+    // const [high, low] = op.mulw(prod, blocksElapsed)
+    dig 2
+    mulw
+    // smart_contracts/yield_vault/contract.algo.ts:209
+    // return op.divw(high, low, denominator)
+    intc 5 // 105120000000
+    divw
+    // smart_contracts/yield_vault/contract.algo.ts:171
+    // return amount + yieldAmt
+    +
+
+getBalance_after_inlined_smart_contracts/yield_vault/contract.algo.ts::YieldVault.getBalance@5:
+    // smart_contracts/yield_vault/contract.algo.ts:164
+    // public getBalance(user: Account): uint64 {
+    itob
+    pushbytes 0x151f7c75
+    swap
+    concat
+    log
+    intc_1 // 1
+    return
+
+getBalance_after_if_else@4:
+    dig 1
+    // smart_contracts/yield_vault/contract.algo.ts:164
+    // public getBalance(user: Account): uint64 {
+    b getBalance_after_inlined_smart_contracts/yield_vault/contract.algo.ts::YieldVault.getBalance@5
+
+
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.accrueYield(user: bytes) -> void:
+accrueYield:
+    // smart_contracts/yield_vault/contract.algo.ts:179
+    // private accrueYield(user: Account): void {
+    proto 1 0
+    intc_0 // 0
+    pushbytes ""
+    dup
+    // smart_contracts/yield_vault/contract.algo.ts:32
+    // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
+    bytec_3 // "d"
+    frame_dig -1
+    concat
+    dup
+    // smart_contracts/yield_vault/contract.algo.ts:180
+    // const amount = this.deposits(user).get({ default: Uint64(0) })
+    box_get
+    swap
+    btoi
+    intc_0 // 0
+    swap
+    uncover 2
+    select
+    dup
+    // smart_contracts/yield_vault/contract.algo.ts:182
+    // if (amount === 0) {
+    bnz accrueYield_after_if_else@2
+    // smart_contracts/yield_vault/contract.algo.ts:183
+    // this.lastBlocks(user).value = Global.round
+    global Round
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    frame_dig -1
+    concat
+    // smart_contracts/yield_vault/contract.algo.ts:183
+    // this.lastBlocks(user).value = Global.round
+    swap
+    itob
+    box_put
+    // smart_contracts/yield_vault/contract.algo.ts:184
+    // return
+    retsub
+
+accrueYield_after_if_else@2:
+    // smart_contracts/yield_vault/contract.algo.ts:34
+    // public lastBlocks = BoxMap<Account, uint64>({ keyPrefix: 'b' })
+    bytec_1 // "b"
+    frame_dig -1
+    concat
+    dup
+    frame_bury 0
+    // smart_contracts/yield_vault/contract.algo.ts:187
+    // const lastBlock = this.lastBlocks(user).get({ default: Global.round })
+    global Round
+    swap
+    box_get
+    swap
+    btoi
+    swap
+    select
+    // smart_contracts/yield_vault/contract.algo.ts:188
+    // const blocksElapsed = Uint64(Global.round - lastBlock)
+    global Round
+    swap
+    -
+    dup
+    frame_bury 1
+    // smart_contracts/yield_vault/contract.algo.ts:190
+    // if (blocksElapsed > 0) {
+    bz accrueYield_after_if_else@6
+    // smart_contracts/yield_vault/contract.algo.ts:206
+    // const prod: uint64 = amount * YIELD_BPS
+    frame_dig 4
+    pushint 600 // 600
+    *
+    // smart_contracts/yield_vault/contract.algo.ts:207
+    // const [high, low] = op.mulw(prod, blocksElapsed)
+    frame_dig 1
+    mulw
+    // smart_contracts/yield_vault/contract.algo.ts:209
+    // return op.divw(high, low, denominator)
+    intc 5 // 105120000000
+    divw
+    dup
+    frame_bury 2
+    // smart_contracts/yield_vault/contract.algo.ts:192
+    // if (earnedYield > 0) {
+    bz accrueYield_after_if_else@6
+    // smart_contracts/yield_vault/contract.algo.ts:193
+    // this.deposits(user).value = amount + earnedYield
+    frame_dig 4
+    frame_dig 2
+    +
+    itob
+    frame_dig 3
+    swap
+    box_put
+
+accrueYield_after_if_else@6:
+    // smart_contracts/yield_vault/contract.algo.ts:196
+    // this.lastBlocks(user).value = Global.round
+    global Round
+    itob
+    frame_dig 0
+    swap
+    box_put
+    retsub

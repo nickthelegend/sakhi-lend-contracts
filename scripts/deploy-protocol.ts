@@ -19,7 +19,7 @@ async function deploy() {
   })
   const oracleDeployment = await oracleFactory.deploy({
     onSchemaBreak: 'replace',
-    onUpdate: 'replace',
+    onUpdate: 'append',
     createParams: {
       method: 'createApplication',
       args: [],
@@ -46,7 +46,7 @@ async function deploy() {
   })
   const vaultDeployment = await vaultFactory.deploy({
     onSchemaBreak: 'replace',
-    onUpdate: 'replace',
+    onUpdate: 'append',
     createParams: {
       method: 'createApplication',
       args: [],
@@ -84,7 +84,7 @@ async function deploy() {
   })
   const poolDeployment = await poolFactory.deploy({
     onSchemaBreak: 'replace',
-    onUpdate: 'replace',
+    onUpdate: 'append',
     createParams: {
       method: 'createApplication',
       args: [],
