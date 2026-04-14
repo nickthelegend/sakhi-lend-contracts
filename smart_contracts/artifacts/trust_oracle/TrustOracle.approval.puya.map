@@ -3,7 +3,7 @@
   "sources": [
     "../../trust_oracle/contract.algo.ts"
   ],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAeA;;AAAA;AAAA;AAAA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;AAAA;AAAA;;;;;;AAAA;;;AAAA;;;;AAAA;AAES;AAYgB;;AAArB;AADF;AAAA;;AAQA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AACS;;AAAe;AApBjB;AAoBiB;AAAA;AAAf;AAAA;;;AAAqC;;AAAe;AAAf;AAArC;;;;AAAP;AACO;;AAAS;;;AAAT;AAAP;AAlBc;AAAA;;AAAA;AAAA;AAAA;;AAqBT;AAAA;;AAAD;;;AAEK;;AAAA;;AAAwB;;AAAxB;AAAP;AACO;;AAAqB;;;;AAArB;AAAP;AAGF;;AAAA;AAAA;;AAAA;AAAA;AAzBgB;AAAA;;AAAA;AAAA;;AAAA;AA0BY;AAA5B;AAAA;AAC8B;;AAzBZ;;;AAAA;;AAAA;AAyBlB;AAAA;AAAA;AAEI;;;;;;;;;;;;;;;AAAJ;AAfF;AAAA;;;;;AAsBA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACS;;AAAe;AA1CjB;AA0CiB;AAAA;AAAf;AAAA;;;AAAqC;;AAAe;AAAf;AAArC;;;;AAAP;AArCgB;AAAA;;AAAA;AAAA;;AAAA;AAsCY;AAA5B;AAAA;AAxCc;AAAA;AAAA;AAyCY;AAA1B;AAAA;AACI;;;;;;;;;;;;;;;;;;;;;AAAJ;AAJF;AAAA;;;;;AAUA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAhDgB;AAAA;AAAA;AAiDP;AAAA;AAAA;AAAwC;AAAxC;AAAA;;AAAA;AADT;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAOA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AArDkB;AAAA;AAAA;AAsDT;AAAA;AAAA;AAAmC;AAAnC;AAAA;;AAAA;AADT;;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA",
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAeA;;;;;;AAAA;;;AAAA;;;;AAAA;;AAAA;AAAA;AAAA;;AAAA;;;AAAA;;;;;;;;;;;;;;;;;;;;;;AAAA;;;AAAA;;;;;;;;;;AAAA;AAAA;;;;;;AAAA;;;AAAA;;;;AAAA;AAmEE;;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;;AAjEO;AAYgB;;AAArB;AADF;AAAA;;AAQA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AACS;;AAAe;AApBjB;AAoBiB;AAAA;AAAf;AAAA;;;AAAqC;;AAAe;AAAf;AAArC;;;;AAAP;AACO;;AAAS;;;AAAT;AAAP;AAlBc;AAAA;;AAAA;AAAA;AAAA;;AAqBT;AAAA;;AAAD;;;AAEK;;AAAA;;AAAwB;;AAAxB;AAAP;AACO;;AAAqB;;;;AAArB;AAAP;AAGF;;AAAA;AAAA;;AAAA;AAAA;AAzBgB;AAAA;;AAAA;AAAA;;AAAA;AA0BY;AAA5B;AAAA;AAC8B;;AAzBZ;;;AAAA;;AAAA;AAyBlB;AAAA;AAAA;AAEI;;;;;;;;;;;;;;;AAAJ;AAfF;AAAA;;;;;AAsBA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACS;;AAAe;AA1CjB;AA0CiB;AAAA;AAAf;AAAA;;;AAAqC;;AAAe;AAAf;AAArC;;;;AAAP;AArCgB;AAAA;;AAAA;AAAA;;AAAA;AAsCY;AAA5B;AAAA;AAxCc;AAAA;AAAA;AAyCY;AAA1B;AAAA;AACI;;;;;;;;;;;;;;;;;;;;;AAAJ;AAJF;AAAA;;;;;AAUA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAhDgB;AAAA;AAAA;AAiDP;AAAA;AAAA;AAAwC;AAAxC;AAAA;;AAAA;AADT;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAOA;;;AAAA;AAAA;AAAA;AAAA;AAAA;AArDkB;AAAA;AAAA;AAsDT;AAAA;AAAA;AAAmC;AAAnC;AAAA;;AAAA;AADT;;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAQS;;AAAe;AAlEjB;AAkEiB;AAAA;AAAf;AAAA;;;AAAqC;;AAAe;AAAf;AAArC;;;;AAAP;AADF;AAAA;;",
   "op_pc_offset": 0,
   "pc_events": {
     "1": {
@@ -14,45 +14,71 @@
       "op": "intcblock 1 0 32"
     },
     "6": {
-      "op": "bytecblock \"creator\" \"s\" \"v\" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) 0x151f7c75"
+      "op": "bytecblock \"creator\" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) \"s\" \"v\" 0x151f7c75"
     },
     "58": {
+      "op": "pushbytes 0x2487c32c // method \"deleteApplication()void\"",
+      "defined_out": [
+        "Method(deleteApplication()void)"
+      ],
+      "stack_out": [
+        "Method(deleteApplication()void)"
+      ]
+    },
+    "64": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(deleteApplication()void)",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "Method(deleteApplication()void)",
+        "tmp%0#1"
+      ]
+    },
+    "67": {
+      "op": "match main_deleteApplication_route@2",
+      "stack_out": []
+    },
+    "71": {
+      "block": "main_switch_case_next@3",
+      "stack_in": [],
       "op": "txn OnCompletion",
       "defined_out": [
-        "tmp%0#1"
+        "tmp%6#0"
       ],
       "stack_out": [
-        "tmp%0#1"
+        "tmp%6#0"
       ]
     },
-    "60": {
+    "73": {
       "op": "!",
       "defined_out": [
-        "tmp%1#0"
+        "tmp%7#0"
       ],
       "stack_out": [
-        "tmp%1#0"
+        "tmp%7#0"
       ]
     },
-    "61": {
+    "74": {
       "error": "OnCompletion must be NoOp",
       "op": "assert // OnCompletion must be NoOp",
       "stack_out": []
     },
-    "62": {
+    "75": {
       "op": "txn ApplicationID",
       "defined_out": [
-        "tmp%2#0"
+        "tmp%8#0"
       ],
       "stack_out": [
-        "tmp%2#0"
+        "tmp%8#0"
       ]
     },
-    "64": {
-      "op": "bz main_create_NoOp@8",
+    "77": {
+      "op": "bz main_create_NoOp@10",
       "stack_out": []
     },
-    "67": {
+    "80": {
       "op": "pushbytess 0xef53119c 0xb86602f9 0x978345d1 0xe31ed474 // method \"attest(address,uint64,pay)void\", method \"revokeAttestation(address)void\", method \"getScore(address)uint64\", method \"isVerified(address)bool\"",
       "defined_out": [
         "Method(attest(address,uint64,pay)void)",
@@ -67,32 +93,32 @@
         "Method(isVerified(address)bool)"
       ]
     },
-    "89": {
+    "102": {
       "op": "txna ApplicationArgs 0",
       "defined_out": [
         "Method(attest(address,uint64,pay)void)",
         "Method(getScore(address)uint64)",
         "Method(isVerified(address)bool)",
         "Method(revokeAttestation(address)void)",
-        "tmp%4#0"
+        "tmp%10#0"
       ],
       "stack_out": [
         "Method(attest(address,uint64,pay)void)",
         "Method(revokeAttestation(address)void)",
         "Method(getScore(address)uint64)",
         "Method(isVerified(address)bool)",
-        "tmp%4#0"
+        "tmp%10#0"
       ]
     },
-    "92": {
+    "105": {
       "op": "match attest revokeAttestation getScore isVerified",
       "stack_out": []
     },
-    "102": {
+    "115": {
       "op": "err"
     },
-    "103": {
-      "block": "main_create_NoOp@8",
+    "116": {
+      "block": "main_create_NoOp@10",
       "stack_in": [],
       "op": "pushbytes 0xb8447b36 // method \"createApplication()void\"",
       "defined_out": [
@@ -102,25 +128,84 @@
         "Method(createApplication()void)"
       ]
     },
-    "109": {
+    "122": {
       "op": "txna ApplicationArgs 0",
       "defined_out": [
         "Method(createApplication()void)",
-        "tmp%5#0"
+        "tmp%11#0"
       ],
       "stack_out": [
         "Method(createApplication()void)",
-        "tmp%5#0"
+        "tmp%11#0"
       ]
     },
-    "112": {
+    "125": {
       "op": "match createApplication",
       "stack_out": []
     },
-    "116": {
+    "129": {
       "op": "err"
     },
-    "117": {
+    "130": {
+      "block": "main_deleteApplication_route@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "132": {
+      "op": "pushint 5 // DeleteApplication",
+      "defined_out": [
+        "DeleteApplication",
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0",
+        "DeleteApplication"
+      ]
+    },
+    "134": {
+      "op": "==",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "135": {
+      "op": "txn ApplicationID",
+      "defined_out": [
+        "tmp%2#0",
+        "tmp%3#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "tmp%3#0"
+      ]
+    },
+    "137": {
+      "op": "&&",
+      "defined_out": [
+        "tmp%5#0"
+      ],
+      "stack_out": [
+        "tmp%5#0"
+      ]
+    },
+    "138": {
+      "error": "OnCompletion must be DeleteApplication && can only call when not creating",
+      "op": "assert // OnCompletion must be DeleteApplication && can only call when not creating",
+      "stack_out": []
+    },
+    "139": {
+      "op": "b deleteApplication"
+    },
+    "142": {
       "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.createApplication[routing]",
       "params": {},
       "block": "createApplication",
@@ -133,7 +218,7 @@
         "\"creator\""
       ]
     },
-    "118": {
+    "143": {
       "op": "txn Sender",
       "defined_out": [
         "\"creator\"",
@@ -144,11 +229,11 @@
         "tmp%0#0"
       ]
     },
-    "120": {
+    "145": {
       "op": "app_global_put",
       "stack_out": []
     },
-    "121": {
+    "146": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1"
@@ -157,11 +242,11 @@
         "1"
       ]
     },
-    "122": {
+    "147": {
       "op": "return",
       "stack_out": []
     },
-    "123": {
+    "148": {
       "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.attest[routing]",
       "params": {},
       "block": "attest",
@@ -171,10 +256,10 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "124": {
+    "149": {
       "op": "txna ApplicationArgs 1"
     },
-    "127": {
+    "152": {
       "op": "dup",
       "defined_out": [
         "user#0"
@@ -185,7 +270,7 @@
         "user#0"
       ]
     },
-    "128": {
+    "153": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -197,7 +282,7 @@
         "len%0#0"
       ]
     },
-    "129": {
+    "154": {
       "op": "intc_2 // 32",
       "defined_out": [
         "32",
@@ -211,7 +296,7 @@
         "32"
       ]
     },
-    "130": {
+    "155": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -223,7 +308,7 @@
         "eq%0#0"
       ]
     },
-    "131": {
+    "156": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
@@ -231,7 +316,7 @@
         "user#0"
       ]
     },
-    "132": {
+    "157": {
       "op": "txna ApplicationArgs 2",
       "defined_out": [
         "tmp%2#0",
@@ -243,7 +328,7 @@
         "tmp%2#0"
       ]
     },
-    "135": {
+    "160": {
       "op": "dup",
       "defined_out": [
         "tmp%2#0",
@@ -257,7 +342,7 @@
         "tmp%2#0 (copy)"
       ]
     },
-    "136": {
+    "161": {
       "op": "len",
       "defined_out": [
         "len%1#0",
@@ -271,7 +356,7 @@
         "len%1#0"
       ]
     },
-    "137": {
+    "162": {
       "op": "pushint 8 // 8",
       "defined_out": [
         "8",
@@ -287,7 +372,7 @@
         "8"
       ]
     },
-    "139": {
+    "164": {
       "op": "==",
       "defined_out": [
         "eq%1#0",
@@ -301,7 +386,7 @@
         "eq%1#0"
       ]
     },
-    "140": {
+    "165": {
       "error": "invalid number of bytes for arc4.uint64",
       "op": "assert // invalid number of bytes for arc4.uint64",
       "stack_out": [
@@ -310,7 +395,7 @@
         "tmp%2#0"
       ]
     },
-    "141": {
+    "166": {
       "op": "btoi",
       "defined_out": [
         "score#0",
@@ -322,7 +407,7 @@
         "score#0"
       ]
     },
-    "142": {
+    "167": {
       "op": "txn GroupIndex",
       "defined_out": [
         "score#0",
@@ -336,7 +421,7 @@
         "tmp%4#0"
       ]
     },
-    "144": {
+    "169": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1",
@@ -352,7 +437,7 @@
         "1"
       ]
     },
-    "145": {
+    "170": {
       "op": "-",
       "defined_out": [
         "mbrPayment#0",
@@ -366,7 +451,7 @@
         "mbrPayment#0"
       ]
     },
-    "146": {
+    "171": {
       "op": "dup",
       "defined_out": [
         "mbrPayment#0",
@@ -381,7 +466,7 @@
         "mbrPayment#0"
       ]
     },
-    "147": {
+    "172": {
       "op": "gtxns TypeEnum",
       "defined_out": [
         "gtxn_type%0#0",
@@ -397,7 +482,7 @@
         "gtxn_type%0#0"
       ]
     },
-    "149": {
+    "174": {
       "op": "intc_0 // pay",
       "defined_out": [
         "gtxn_type%0#0",
@@ -415,7 +500,7 @@
         "pay"
       ]
     },
-    "150": {
+    "175": {
       "op": "==",
       "defined_out": [
         "gtxn_type_matches%0#0",
@@ -431,7 +516,7 @@
         "gtxn_type_matches%0#0"
       ]
     },
-    "151": {
+    "176": {
       "error": "transaction type is pay",
       "op": "assert // transaction type is pay",
       "stack_out": [
@@ -441,7 +526,7 @@
         "mbrPayment#0"
       ]
     },
-    "152": {
+    "177": {
       "op": "txn Sender",
       "defined_out": [
         "mbrPayment#0",
@@ -457,7 +542,7 @@
         "tmp%0#1"
       ]
     },
-    "154": {
+    "179": {
       "op": "intc_1 // 0",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -468,7 +553,7 @@
         "0"
       ]
     },
-    "155": {
+    "180": {
       "op": "bytec_0 // \"creator\"",
       "defined_out": [
         "\"creator\"",
@@ -488,7 +573,7 @@
         "\"creator\""
       ]
     },
-    "156": {
+    "181": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -508,7 +593,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "157": {
+    "182": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -520,7 +605,7 @@
         "maybe_value%0#0"
       ]
     },
-    "158": {
+    "183": {
       "op": "==",
       "defined_out": [
         "mbrPayment#0",
@@ -536,7 +621,7 @@
         "tmp%1#1"
       ]
     },
-    "159": {
+    "184": {
       "op": "bnz attest_bool_true@3",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -545,7 +630,7 @@
         "mbrPayment#0"
       ]
     },
-    "162": {
+    "187": {
       "op": "txn Sender",
       "defined_out": [
         "mbrPayment#0",
@@ -561,8 +646,8 @@
         "tmp%2#1"
       ]
     },
-    "164": {
-      "op": "bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4",
+    "189": {
+      "op": "bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4",
       "defined_out": [
         "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)",
         "mbrPayment#0",
@@ -579,7 +664,7 @@
         "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)"
       ]
     },
-    "165": {
+    "190": {
       "op": "==",
       "defined_out": [
         "mbrPayment#0",
@@ -595,7 +680,7 @@
         "tmp%4#1"
       ]
     },
-    "166": {
+    "191": {
       "op": "bz attest_bool_false@4",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -604,7 +689,7 @@
         "mbrPayment#0"
       ]
     },
-    "169": {
+    "194": {
       "block": "attest_bool_true@3",
       "stack_in": [
         "box_prefixed_key%0#0",
@@ -624,7 +709,7 @@
         "or_result%0#0"
       ]
     },
-    "170": {
+    "195": {
       "error": "Admin only",
       "block": "attest_bool_merge@5",
       "stack_in": [
@@ -643,7 +728,7 @@
         "mbrPayment#0"
       ]
     },
-    "171": {
+    "196": {
       "op": "dig 1",
       "defined_out": [
         "score#0"
@@ -656,7 +741,7 @@
         "score#0"
       ]
     },
-    "173": {
+    "198": {
       "op": "pushint 1000 // 1000",
       "defined_out": [
         "1000",
@@ -671,7 +756,7 @@
         "1000"
       ]
     },
-    "176": {
+    "201": {
       "op": "<=",
       "defined_out": [
         "score#0",
@@ -685,7 +770,7 @@
         "tmp%5#0"
       ]
     },
-    "177": {
+    "202": {
       "error": "Score must be <= 1000",
       "op": "assert // Score must be <= 1000",
       "stack_out": [
@@ -695,8 +780,8 @@
         "mbrPayment#0"
       ]
     },
-    "178": {
-      "op": "bytec_1 // \"s\"",
+    "203": {
+      "op": "bytec_2 // \"s\"",
       "defined_out": [
         "\"s\"",
         "score#0"
@@ -709,7 +794,7 @@
         "\"s\""
       ]
     },
-    "179": {
+    "204": {
       "op": "dig 3",
       "defined_out": [
         "\"s\"",
@@ -725,7 +810,7 @@
         "user#0"
       ]
     },
-    "181": {
+    "206": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -740,7 +825,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "182": {
+    "207": {
       "op": "dup",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -751,7 +836,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "183": {
+    "208": {
       "op": "bury 5",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -766,7 +851,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "185": {
+    "210": {
       "op": "box_len",
       "defined_out": [
         "_%0#0",
@@ -784,7 +869,7 @@
         "maybe_exists%1#0"
       ]
     },
-    "186": {
+    "211": {
       "op": "bury 1",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -794,7 +879,7 @@
         "maybe_exists%1#0"
       ]
     },
-    "188": {
+    "213": {
       "op": "bnz attest_after_if_else@7",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -803,7 +888,7 @@
         "mbrPayment#0"
       ]
     },
-    "191": {
+    "216": {
       "op": "dupn 2",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -821,7 +906,7 @@
         "mbrPayment#0 (copy)"
       ]
     },
-    "193": {
+    "218": {
       "op": "gtxns Receiver",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -839,7 +924,7 @@
         "tmp%6#0"
       ]
     },
-    "195": {
+    "220": {
       "op": "global CurrentApplicationAddress",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -859,7 +944,7 @@
         "tmp%7#0"
       ]
     },
-    "197": {
+    "222": {
       "op": "==",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -877,7 +962,7 @@
         "tmp%8#0"
       ]
     },
-    "198": {
+    "223": {
       "error": "MBR to oracle",
       "op": "assert // MBR to oracle",
       "stack_out": [
@@ -888,7 +973,7 @@
         "mbrPayment#0"
       ]
     },
-    "199": {
+    "224": {
       "op": "gtxns Amount",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -905,7 +990,7 @@
         "tmp%9#0"
       ]
     },
-    "201": {
+    "226": {
       "op": "pushint 385500 // 385500",
       "defined_out": [
         "385500",
@@ -924,7 +1009,7 @@
         "385500"
       ]
     },
-    "205": {
+    "230": {
       "op": ">=",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -941,7 +1026,7 @@
         "tmp%10#0"
       ]
     },
-    "206": {
+    "231": {
       "error": "Insufficient MBR for boxes",
       "op": "assert // Insufficient MBR for boxes",
       "stack_out": [
@@ -951,7 +1036,7 @@
         "mbrPayment#0"
       ]
     },
-    "207": {
+    "232": {
       "block": "attest_after_if_else@7",
       "stack_in": [
         "box_prefixed_key%0#0",
@@ -971,7 +1056,7 @@
         "score#0"
       ]
     },
-    "209": {
+    "234": {
       "op": "itob",
       "defined_out": [
         "encoded_value%0#0",
@@ -985,7 +1070,7 @@
         "encoded_value%0#0"
       ]
     },
-    "210": {
+    "235": {
       "op": "dig 4",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1001,7 +1086,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "212": {
+    "237": {
       "op": "swap",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1012,7 +1097,7 @@
         "encoded_value%0#0"
       ]
     },
-    "213": {
+    "238": {
       "op": "box_put",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1021,8 +1106,8 @@
         "mbrPayment#0"
       ]
     },
-    "214": {
-      "op": "bytec_2 // \"v\"",
+    "239": {
+      "op": "bytec_3 // \"v\"",
       "defined_out": [
         "\"v\"",
         "box_prefixed_key%0#0",
@@ -1036,7 +1121,7 @@
         "\"v\""
       ]
     },
-    "215": {
+    "240": {
       "op": "dig 3",
       "defined_out": [
         "\"v\"",
@@ -1053,7 +1138,7 @@
         "user#0"
       ]
     },
-    "217": {
+    "242": {
       "op": "dup",
       "defined_out": [
         "\"v\"",
@@ -1072,7 +1157,7 @@
         "user#0 (copy)"
       ]
     },
-    "218": {
+    "243": {
       "op": "cover 2",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1084,7 +1169,7 @@
         "user#0 (copy)"
       ]
     },
-    "220": {
+    "245": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1101,7 +1186,7 @@
         "box_prefixed_key%2#0"
       ]
     },
-    "221": {
+    "246": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1",
@@ -1120,7 +1205,7 @@
         "1"
       ]
     },
-    "222": {
+    "247": {
       "op": "itob",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1139,7 +1224,7 @@
         "encoded_value%1#0"
       ]
     },
-    "223": {
+    "248": {
       "op": "box_put",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1149,7 +1234,7 @@
         "user#0"
       ]
     },
-    "224": {
+    "249": {
       "op": "global Round",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1166,7 +1251,7 @@
         "tmp%11#0"
       ]
     },
-    "226": {
+    "251": {
       "op": "pushbytes \"a\"",
       "defined_out": [
         "\"a\"",
@@ -1185,7 +1270,7 @@
         "\"a\""
       ]
     },
-    "229": {
+    "254": {
       "op": "uncover 2",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1197,7 +1282,7 @@
         "user#0"
       ]
     },
-    "231": {
+    "256": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1215,7 +1300,7 @@
         "box_prefixed_key%3#0"
       ]
     },
-    "232": {
+    "257": {
       "op": "swap",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1226,7 +1311,7 @@
         "tmp%11#0"
       ]
     },
-    "233": {
+    "258": {
       "op": "itob",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1244,7 +1329,7 @@
         "encoded_value%2#0"
       ]
     },
-    "234": {
+    "259": {
       "op": "box_put",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1253,7 +1338,7 @@
         "mbrPayment#0"
       ]
     },
-    "235": {
+    "260": {
       "op": "pushbytes \"USER_ATTESTED\"",
       "defined_out": [
         "\"USER_ATTESTED\"",
@@ -1269,7 +1354,7 @@
         "\"USER_ATTESTED\""
       ]
     },
-    "250": {
+    "275": {
       "op": "log",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1278,7 +1363,7 @@
         "mbrPayment#0"
       ]
     },
-    "251": {
+    "276": {
       "op": "intc_0 // 1",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1288,7 +1373,7 @@
         "1"
       ]
     },
-    "252": {
+    "277": {
       "op": "return",
       "stack_out": [
         "box_prefixed_key%0#0",
@@ -1297,7 +1382,7 @@
         "mbrPayment#0"
       ]
     },
-    "253": {
+    "278": {
       "block": "attest_bool_false@4",
       "stack_in": [
         "box_prefixed_key%0#0",
@@ -1317,17 +1402,17 @@
         "or_result%0#0"
       ]
     },
-    "254": {
+    "279": {
       "op": "b attest_bool_merge@5"
     },
-    "257": {
+    "282": {
       "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.revokeAttestation[routing]",
       "params": {},
       "block": "revokeAttestation",
       "stack_in": [],
       "op": "txna ApplicationArgs 1"
     },
-    "260": {
+    "285": {
       "op": "dup",
       "defined_out": [
         "user#0"
@@ -1337,7 +1422,7 @@
         "user#0"
       ]
     },
-    "261": {
+    "286": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -1348,7 +1433,7 @@
         "len%0#0"
       ]
     },
-    "262": {
+    "287": {
       "op": "intc_2 // 32",
       "defined_out": [
         "32",
@@ -1361,7 +1446,7 @@
         "32"
       ]
     },
-    "263": {
+    "288": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -1372,14 +1457,14 @@
         "eq%0#0"
       ]
     },
-    "264": {
+    "289": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
         "user#0"
       ]
     },
-    "265": {
+    "290": {
       "op": "txn Sender",
       "defined_out": [
         "tmp%0#1",
@@ -1390,7 +1475,7 @@
         "tmp%0#1"
       ]
     },
-    "267": {
+    "292": {
       "op": "intc_1 // 0",
       "stack_out": [
         "user#0",
@@ -1398,7 +1483,7 @@
         "0"
       ]
     },
-    "268": {
+    "293": {
       "op": "bytec_0 // \"creator\"",
       "defined_out": [
         "\"creator\"",
@@ -1413,7 +1498,7 @@
         "\"creator\""
       ]
     },
-    "269": {
+    "294": {
       "op": "app_global_get_ex",
       "defined_out": [
         "maybe_exists%0#0",
@@ -1428,7 +1513,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "270": {
+    "295": {
       "error": "check GlobalState exists",
       "op": "assert // check GlobalState exists",
       "stack_out": [
@@ -1437,7 +1522,7 @@
         "maybe_value%0#0"
       ]
     },
-    "271": {
+    "296": {
       "op": "==",
       "defined_out": [
         "tmp%1#1",
@@ -1448,13 +1533,13 @@
         "tmp%1#1"
       ]
     },
-    "272": {
+    "297": {
       "op": "bnz revokeAttestation_bool_true@3",
       "stack_out": [
         "user#0"
       ]
     },
-    "275": {
+    "300": {
       "op": "txn Sender",
       "defined_out": [
         "tmp%2#0",
@@ -1465,8 +1550,8 @@
         "tmp%2#0"
       ]
     },
-    "277": {
-      "op": "bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4",
+    "302": {
+      "op": "bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4",
       "defined_out": [
         "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)",
         "tmp%2#0",
@@ -1478,7 +1563,7 @@
         "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)"
       ]
     },
-    "278": {
+    "303": {
       "op": "==",
       "defined_out": [
         "tmp%4#0",
@@ -1489,13 +1574,13 @@
         "tmp%4#0"
       ]
     },
-    "279": {
+    "304": {
       "op": "bz revokeAttestation_bool_false@4",
       "stack_out": [
         "user#0"
       ]
     },
-    "282": {
+    "307": {
       "block": "revokeAttestation_bool_true@3",
       "stack_in": [
         "user#0"
@@ -1509,7 +1594,7 @@
         "or_result%0#0"
       ]
     },
-    "283": {
+    "308": {
       "error": "Admin only",
       "block": "revokeAttestation_bool_merge@5",
       "stack_in": [
@@ -1522,8 +1607,8 @@
         "user#0"
       ]
     },
-    "284": {
-      "op": "bytec_2 // \"v\"",
+    "309": {
+      "op": "bytec_3 // \"v\"",
       "defined_out": [
         "\"v\""
       ],
@@ -1532,7 +1617,7 @@
         "\"v\""
       ]
     },
-    "285": {
+    "310": {
       "op": "dig 1",
       "defined_out": [
         "\"v\"",
@@ -1544,7 +1629,7 @@
         "user#0"
       ]
     },
-    "287": {
+    "312": {
       "op": "dup",
       "defined_out": [
         "\"v\"",
@@ -1558,7 +1643,7 @@
         "user#0 (copy)"
       ]
     },
-    "288": {
+    "313": {
       "op": "cover 2",
       "stack_out": [
         "user#0",
@@ -1567,7 +1652,7 @@
         "user#0 (copy)"
       ]
     },
-    "290": {
+    "315": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1579,7 +1664,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "291": {
+    "316": {
       "op": "intc_1 // 0",
       "defined_out": [
         "0",
@@ -1593,7 +1678,7 @@
         "0"
       ]
     },
-    "292": {
+    "317": {
       "op": "itob",
       "defined_out": [
         "box_prefixed_key%0#0",
@@ -1607,15 +1692,15 @@
         "encoded_value%0#0"
       ]
     },
-    "293": {
+    "318": {
       "op": "box_put",
       "stack_out": [
         "user#0",
         "user#0"
       ]
     },
-    "294": {
-      "op": "bytec_1 // \"s\"",
+    "319": {
+      "op": "bytec_2 // \"s\"",
       "defined_out": [
         "\"s\"",
         "user#0"
@@ -1626,7 +1711,7 @@
         "\"s\""
       ]
     },
-    "295": {
+    "320": {
       "op": "swap",
       "stack_out": [
         "user#0",
@@ -1634,7 +1719,7 @@
         "user#0"
       ]
     },
-    "296": {
+    "321": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%1#0",
@@ -1645,7 +1730,7 @@
         "box_prefixed_key%1#0"
       ]
     },
-    "297": {
+    "322": {
       "op": "intc_1 // 0",
       "stack_out": [
         "user#0",
@@ -1653,7 +1738,7 @@
         "0"
       ]
     },
-    "298": {
+    "323": {
       "op": "itob",
       "defined_out": [
         "box_prefixed_key%1#0",
@@ -1666,13 +1751,13 @@
         "encoded_value%1#0"
       ]
     },
-    "299": {
+    "324": {
       "op": "box_put",
       "stack_out": [
         "user#0"
       ]
     },
-    "300": {
+    "325": {
       "op": "pushbytes \"ATTESTATION_REVOKED\"",
       "defined_out": [
         "\"ATTESTATION_REVOKED\"",
@@ -1683,13 +1768,13 @@
         "\"ATTESTATION_REVOKED\""
       ]
     },
-    "321": {
+    "346": {
       "op": "log",
       "stack_out": [
         "user#0"
       ]
     },
-    "322": {
+    "347": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1",
@@ -1700,13 +1785,13 @@
         "1"
       ]
     },
-    "323": {
+    "348": {
       "op": "return",
       "stack_out": [
         "user#0"
       ]
     },
-    "324": {
+    "349": {
       "block": "revokeAttestation_bool_false@4",
       "stack_in": [
         "user#0"
@@ -1720,10 +1805,10 @@
         "or_result%0#0"
       ]
     },
-    "325": {
+    "350": {
       "op": "b revokeAttestation_bool_merge@5"
     },
-    "328": {
+    "353": {
       "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.getScore[routing]",
       "params": {},
       "block": "getScore",
@@ -1736,7 +1821,7 @@
         "user#0"
       ]
     },
-    "331": {
+    "356": {
       "op": "dup",
       "defined_out": [
         "user#0",
@@ -1747,7 +1832,7 @@
         "user#0 (copy)"
       ]
     },
-    "332": {
+    "357": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -1758,7 +1843,7 @@
         "len%0#0"
       ]
     },
-    "333": {
+    "358": {
       "op": "intc_2 // 32",
       "defined_out": [
         "32",
@@ -1771,7 +1856,7 @@
         "32"
       ]
     },
-    "334": {
+    "359": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -1782,15 +1867,15 @@
         "eq%0#0"
       ]
     },
-    "335": {
+    "360": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
         "user#0"
       ]
     },
-    "336": {
-      "op": "bytec_1 // \"s\"",
+    "361": {
+      "op": "bytec_2 // \"s\"",
       "defined_out": [
         "\"s\"",
         "user#0"
@@ -1800,14 +1885,14 @@
         "\"s\""
       ]
     },
-    "337": {
+    "362": {
       "op": "swap",
       "stack_out": [
         "\"s\"",
         "user#0"
       ]
     },
-    "338": {
+    "363": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0"
@@ -1816,7 +1901,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "339": {
+    "364": {
       "op": "box_get",
       "defined_out": [
         "maybe_exists%0#0",
@@ -1827,14 +1912,14 @@
         "maybe_exists%0#0"
       ]
     },
-    "340": {
+    "365": {
       "op": "swap",
       "stack_out": [
         "maybe_exists%0#0",
         "maybe_value%0#0"
       ]
     },
-    "341": {
+    "366": {
       "op": "btoi",
       "defined_out": [
         "maybe_exists%0#0",
@@ -1845,7 +1930,7 @@
         "maybe_value_converted%0#0"
       ]
     },
-    "342": {
+    "367": {
       "op": "intc_1 // 0",
       "defined_out": [
         "0",
@@ -1858,7 +1943,7 @@
         "0"
       ]
     },
-    "343": {
+    "368": {
       "op": "swap",
       "stack_out": [
         "maybe_exists%0#0",
@@ -1866,7 +1951,7 @@
         "maybe_value_converted%0#0"
       ]
     },
-    "344": {
+    "369": {
       "op": "uncover 2",
       "stack_out": [
         "0",
@@ -1874,7 +1959,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "346": {
+    "371": {
       "op": "select",
       "defined_out": [
         "state_get%0#0"
@@ -1883,7 +1968,7 @@
         "state_get%0#0"
       ]
     },
-    "347": {
+    "372": {
       "op": "itob",
       "defined_out": [
         "aggregate%val_as_bytes%0#0"
@@ -1892,7 +1977,7 @@
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "348": {
+    "373": {
       "op": "bytec 4 // 0x151f7c75",
       "defined_out": [
         "0x151f7c75",
@@ -1903,14 +1988,14 @@
         "0x151f7c75"
       ]
     },
-    "350": {
+    "375": {
       "op": "swap",
       "stack_out": [
         "0x151f7c75",
         "aggregate%val_as_bytes%0#0"
       ]
     },
-    "351": {
+    "376": {
       "op": "concat",
       "defined_out": [
         "tmp%4#0"
@@ -1919,11 +2004,11 @@
         "tmp%4#0"
       ]
     },
-    "352": {
+    "377": {
       "op": "log",
       "stack_out": []
     },
-    "353": {
+    "378": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1"
@@ -1932,11 +2017,11 @@
         "1"
       ]
     },
-    "354": {
+    "379": {
       "op": "return",
       "stack_out": []
     },
-    "355": {
+    "380": {
       "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.isVerified[routing]",
       "params": {},
       "block": "isVerified",
@@ -1949,7 +2034,7 @@
         "user#0"
       ]
     },
-    "358": {
+    "383": {
       "op": "dup",
       "defined_out": [
         "user#0",
@@ -1960,7 +2045,7 @@
         "user#0 (copy)"
       ]
     },
-    "359": {
+    "384": {
       "op": "len",
       "defined_out": [
         "len%0#0",
@@ -1971,7 +2056,7 @@
         "len%0#0"
       ]
     },
-    "360": {
+    "385": {
       "op": "intc_2 // 32",
       "defined_out": [
         "32",
@@ -1984,7 +2069,7 @@
         "32"
       ]
     },
-    "361": {
+    "386": {
       "op": "==",
       "defined_out": [
         "eq%0#0",
@@ -1995,15 +2080,15 @@
         "eq%0#0"
       ]
     },
-    "362": {
+    "387": {
       "error": "invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "op": "assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>",
       "stack_out": [
         "user#0"
       ]
     },
-    "363": {
-      "op": "bytec_2 // \"v\"",
+    "388": {
+      "op": "bytec_3 // \"v\"",
       "defined_out": [
         "\"v\"",
         "user#0"
@@ -2013,14 +2098,14 @@
         "\"v\""
       ]
     },
-    "364": {
+    "389": {
       "op": "swap",
       "stack_out": [
         "\"v\"",
         "user#0"
       ]
     },
-    "365": {
+    "390": {
       "op": "concat",
       "defined_out": [
         "box_prefixed_key%0#0"
@@ -2029,7 +2114,7 @@
         "box_prefixed_key%0#0"
       ]
     },
-    "366": {
+    "391": {
       "op": "box_get",
       "defined_out": [
         "maybe_exists%0#0",
@@ -2040,14 +2125,14 @@
         "maybe_exists%0#0"
       ]
     },
-    "367": {
+    "392": {
       "op": "swap",
       "stack_out": [
         "maybe_exists%0#0",
         "maybe_value%0#0"
       ]
     },
-    "368": {
+    "393": {
       "op": "btoi",
       "defined_out": [
         "maybe_exists%0#0",
@@ -2058,7 +2143,7 @@
         "maybe_value_converted%0#0"
       ]
     },
-    "369": {
+    "394": {
       "op": "intc_1 // 0",
       "defined_out": [
         "0",
@@ -2071,7 +2156,7 @@
         "0"
       ]
     },
-    "370": {
+    "395": {
       "op": "swap",
       "stack_out": [
         "maybe_exists%0#0",
@@ -2079,7 +2164,7 @@
         "maybe_value_converted%0#0"
       ]
     },
-    "371": {
+    "396": {
       "op": "uncover 2",
       "stack_out": [
         "0",
@@ -2087,7 +2172,7 @@
         "maybe_exists%0#0"
       ]
     },
-    "373": {
+    "398": {
       "op": "select",
       "defined_out": [
         "state_get%0#0"
@@ -2096,7 +2181,7 @@
         "state_get%0#0"
       ]
     },
-    "374": {
+    "399": {
       "op": "pushbytes 0x00",
       "defined_out": [
         "0x00",
@@ -2107,7 +2192,7 @@
         "0x00"
       ]
     },
-    "377": {
+    "402": {
       "op": "intc_1 // 0",
       "stack_out": [
         "state_get%0#0",
@@ -2115,7 +2200,7 @@
         "0"
       ]
     },
-    "378": {
+    "403": {
       "op": "uncover 2",
       "stack_out": [
         "0x00",
@@ -2123,7 +2208,7 @@
         "state_get%0#0"
       ]
     },
-    "380": {
+    "405": {
       "op": "setbit",
       "defined_out": [
         "aggregate%encoded_bool%0#0"
@@ -2132,7 +2217,7 @@
         "aggregate%encoded_bool%0#0"
       ]
     },
-    "381": {
+    "406": {
       "op": "bytec 4 // 0x151f7c75",
       "defined_out": [
         "0x151f7c75",
@@ -2143,14 +2228,14 @@
         "0x151f7c75"
       ]
     },
-    "383": {
+    "408": {
       "op": "swap",
       "stack_out": [
         "0x151f7c75",
         "aggregate%encoded_bool%0#0"
       ]
     },
-    "384": {
+    "409": {
       "op": "concat",
       "defined_out": [
         "tmp%4#0"
@@ -2159,11 +2244,11 @@
         "tmp%4#0"
       ]
     },
-    "385": {
+    "410": {
       "op": "log",
       "stack_out": []
     },
-    "386": {
+    "411": {
       "op": "intc_0 // 1",
       "defined_out": [
         "1"
@@ -2172,9 +2257,161 @@
         "1"
       ]
     },
-    "387": {
+    "412": {
       "op": "return",
       "stack_out": []
+    },
+    "413": {
+      "subroutine": "smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.deleteApplication[routing]",
+      "params": {},
+      "block": "deleteApplication",
+      "stack_in": [],
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0"
+      ]
+    },
+    "415": {
+      "op": "intc_1 // 0",
+      "defined_out": [
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0"
+      ]
+    },
+    "416": {
+      "op": "bytec_0 // \"creator\"",
+      "defined_out": [
+        "\"creator\"",
+        "0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "0",
+        "\"creator\""
+      ]
+    },
+    "417": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "maybe_exists%0#0",
+        "maybe_value%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0",
+        "maybe_exists%0#0"
+      ]
+    },
+    "418": {
+      "error": "check GlobalState exists",
+      "op": "assert // check GlobalState exists",
+      "stack_out": [
+        "tmp%0#0",
+        "maybe_value%0#0"
+      ]
+    },
+    "419": {
+      "op": "==",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "420": {
+      "op": "bnz deleteApplication_bool_true@3",
+      "stack_out": []
+    },
+    "423": {
+      "op": "txn Sender",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "425": {
+      "op": "bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4",
+      "defined_out": [
+        "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)",
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0",
+        "Address(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4)"
+      ]
+    },
+    "426": {
+      "op": "==",
+      "defined_out": [
+        "tmp%4#0"
+      ],
+      "stack_out": [
+        "tmp%4#0"
+      ]
+    },
+    "427": {
+      "op": "bz deleteApplication_bool_false@4",
+      "stack_out": []
+    },
+    "430": {
+      "block": "deleteApplication_bool_true@3",
+      "stack_in": [],
+      "op": "intc_0 // 1",
+      "defined_out": [
+        "or_result%0#0"
+      ],
+      "stack_out": [
+        "or_result%0#0"
+      ]
+    },
+    "431": {
+      "error": "Admin only",
+      "block": "deleteApplication_bool_merge@5",
+      "stack_in": [
+        "or_result%0#0"
+      ],
+      "op": "assert // Admin only",
+      "defined_out": [],
+      "stack_out": []
+    },
+    "432": {
+      "op": "intc_0 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "1"
+      ]
+    },
+    "433": {
+      "op": "return",
+      "stack_out": []
+    },
+    "434": {
+      "block": "deleteApplication_bool_false@4",
+      "stack_in": [],
+      "op": "intc_1 // 0",
+      "defined_out": [
+        "or_result%0#0"
+      ],
+      "stack_out": [
+        "or_result%0#0"
+      ]
+    },
+    "435": {
+      "op": "b deleteApplication_bool_merge@5"
     }
   }
 }

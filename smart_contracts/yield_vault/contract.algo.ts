@@ -208,4 +208,11 @@ export class YieldVault extends Contract {
     const denominator: uint64 = Uint64(10000) * ANNUAL_BLOCKS
     return op.divw(high, low, denominator)
   }
+
+  /**
+   * Allows the admin to delete the application.
+   */
+  public deleteApplication(): void {
+    assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+  }
 }

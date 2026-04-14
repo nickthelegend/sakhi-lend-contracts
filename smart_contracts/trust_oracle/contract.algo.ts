@@ -76,4 +76,11 @@ export class TrustOracle extends Contract {
   public isVerified(user: Account): boolean {
     return this.verified(user).get({ default: false })
   }
+
+  /**
+   * Allows the admin to delete the application.
+   */
+  public deleteApplication(): void {
+    assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+  }
 }

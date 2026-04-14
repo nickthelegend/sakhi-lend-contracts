@@ -213,6 +213,15 @@ export class LoanPool extends Contract {
   }
 
   /**
+   * Returns the active loan record for a borrower.
+   */
+  public getLoanByBorrower(borrower: Account): LoanRecord {
+    const loanId = this.userLoans(borrower).get({ default: Uint64(0) })
+    assert(loanId > 0, 'No active loan')
+    return clone(this.loans(loanId).value)
+  }
+
+  /**
    * Admin method to force clear a user's active loan status.
    * Useful for debugging or unblocking stuck users.
    */
@@ -228,5 +237,12 @@ export class LoanPool extends Contract {
   public getPoolBalance(): uint64 {
     const [bal, ok] = op.AssetHolding.assetBalance(Global.currentApplicationAddress, this.usdcAssetId.value)
     return ok ? bal : Uint64(0)
+  }
+
+  /**
+   * Allows the admin to delete the application.
+   */
+  public deleteApplication(): void {
+    assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
   }
 }

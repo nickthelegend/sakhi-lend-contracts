@@ -4,20 +4,27 @@
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
     intcblock 0 1 4 8 1000001 105120000000
-    bytecblock "usdcAssetId" "b" "isPaused" "d" "creator" "reserveBalance" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "DEPOSIT:"
+    bytecblock "usdcAssetId" "b" "creator" "isPaused" "d" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "reserveBalance" "DEPOSIT:"
+    // smart_contracts/yield_vault/contract.algo.ts:21
+    // export class YieldVault extends Contract {
+    pushbytes 0x2487c32c // method "deleteApplication()void"
+    txna ApplicationArgs 0
+    match main_deleteApplication_route@2
+
+main_switch_case_next@3:
     // smart_contracts/yield_vault/contract.algo.ts:21
     // export class YieldVault extends Contract {
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
     txn ApplicationID
-    bz main_create_NoOp@11
+    bz main_create_NoOp@13
     pushbytess 0xa0cadf8a 0x539d0c8a 0x8685c687 0x21f1ddff 0x4fc1f9ad 0xdaef9d74 0xb417a864 // method "bootstrap(uint64)void", method "depositFirst(axfer,pay)void", method "depositMore(axfer)void", method "withdraw(uint64)void", method "fundReserves(axfer)void", method "setPause(bool)void", method "getBalance(address)uint64"
     txna ApplicationArgs 0
     match bootstrap depositFirst depositMore withdraw fundReserves setPause getBalance
     err
 
-main_create_NoOp@11:
+main_create_NoOp@13:
     // smart_contracts/yield_vault/contract.algo.ts:21
     // export class YieldVault extends Contract {
     pushbytes 0xb8447b36 // method "createApplication()void"
@@ -25,26 +32,37 @@ main_create_NoOp@11:
     match createApplication
     err
 
+main_deleteApplication_route@2:
+    // smart_contracts/yield_vault/contract.algo.ts:215
+    // public deleteApplication(): void {
+    txn OnCompletion
+    pushint 5 // DeleteApplication
+    ==
+    txn ApplicationID
+    &&
+    assert // OnCompletion must be DeleteApplication && can only call when not creating
+    b deleteApplication
+
 
 // smart_contracts/yield_vault/contract.algo.ts::YieldVault.createApplication[routing]() -> void:
 createApplication:
     // smart_contracts/yield_vault/contract.algo.ts:23
     // public creator = GlobalState<Account>()
-    bytec 4 // "creator"
+    bytec_2 // "creator"
     // smart_contracts/yield_vault/contract.algo.ts:39
     // this.creator.value = Txn.sender
     txn Sender
     app_global_put
     // smart_contracts/yield_vault/contract.algo.ts:29
     // public isPaused = GlobalState<boolean>()
-    bytec_2 // "isPaused"
+    bytec_3 // "isPaused"
     // smart_contracts/yield_vault/contract.algo.ts:40
     // this.isPaused.value = false
     intc_0 // 0
     app_global_put
     // smart_contracts/yield_vault/contract.algo.ts:27
     // public reserveBalance = GlobalState<uint64>()
-    bytec 5 // "reserveBalance"
+    bytec 6 // "reserveBalance"
     // smart_contracts/yield_vault/contract.algo.ts:41
     // this.reserveBalance.value = Uint64(0)
     intc_0 // 0
@@ -72,7 +90,7 @@ bootstrap:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:23
     // public creator = GlobalState<Account>()
-    bytec 4 // "creator"
+    bytec_2 // "creator"
     // smart_contracts/yield_vault/contract.algo.ts:49
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     app_global_get_ex
@@ -80,7 +98,7 @@ bootstrap:
     ==
     bnz bootstrap_bool_true@3
     txn Sender
-    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    bytec 5 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
     ==
     bz bootstrap_bool_false@4
 
@@ -189,7 +207,7 @@ depositFirst:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:29
     // public isPaused = GlobalState<boolean>()
-    bytec_2 // "isPaused"
+    bytec_3 // "isPaused"
     // smart_contracts/yield_vault/contract.algo.ts:71
     // assert(!this.isPaused.value, 'Protocol is paused')
     app_global_get_ex
@@ -230,7 +248,7 @@ depositFirst:
     txn Sender
     // smart_contracts/yield_vault/contract.algo.ts:32
     // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
-    bytec_3 // "d"
+    bytec 4 // "d"
     dig 1
     concat
     // smart_contracts/yield_vault/contract.algo.ts:78
@@ -303,7 +321,7 @@ depositMore:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:29
     // public isPaused = GlobalState<boolean>()
-    bytec_2 // "isPaused"
+    bytec_3 // "isPaused"
     // smart_contracts/yield_vault/contract.algo.ts:96
     // assert(!this.isPaused.value, 'Protocol is paused')
     app_global_get_ex
@@ -343,7 +361,7 @@ depositMore:
     txn Sender
     // smart_contracts/yield_vault/contract.algo.ts:32
     // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
-    bytec_3 // "d"
+    bytec 4 // "d"
     dig 1
     concat
     // smart_contracts/yield_vault/contract.algo.ts:103
@@ -410,7 +428,7 @@ withdraw:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:29
     // public isPaused = GlobalState<boolean>()
-    bytec_2 // "isPaused"
+    bytec_3 // "isPaused"
     // smart_contracts/yield_vault/contract.algo.ts:118
     // assert(!this.isPaused.value, 'Protocol is paused')
     app_global_get_ex
@@ -426,7 +444,7 @@ withdraw:
     callsub accrueYield
     // smart_contracts/yield_vault/contract.algo.ts:32
     // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
-    bytec_3 // "d"
+    bytec 4 // "d"
     dig 1
     concat
     // smart_contracts/yield_vault/contract.algo.ts:123
@@ -539,7 +557,7 @@ fundReserves:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:23
     // public creator = GlobalState<Account>()
-    bytec 4 // "creator"
+    bytec_2 // "creator"
     // smart_contracts/yield_vault/contract.algo.ts:145
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     app_global_get_ex
@@ -547,7 +565,7 @@ fundReserves:
     ==
     bnz fundReserves_bool_true@3
     txn Sender
-    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    bytec 5 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
     ==
     bz fundReserves_bool_false@4
 
@@ -584,7 +602,7 @@ fundReserves_bool_merge@5:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:27
     // public reserveBalance = GlobalState<uint64>()
-    bytec 5 // "reserveBalance"
+    bytec 6 // "reserveBalance"
     // smart_contracts/yield_vault/contract.algo.ts:149
     // this.reserveBalance.value = this.reserveBalance.value + axfer.assetAmount
     app_global_get_ex
@@ -594,7 +612,7 @@ fundReserves_bool_merge@5:
     +
     // smart_contracts/yield_vault/contract.algo.ts:27
     // public reserveBalance = GlobalState<uint64>()
-    bytec 5 // "reserveBalance"
+    bytec 6 // "reserveBalance"
     // smart_contracts/yield_vault/contract.algo.ts:149
     // this.reserveBalance.value = this.reserveBalance.value + axfer.assetAmount
     swap
@@ -631,7 +649,7 @@ setPause:
     intc_0 // 0
     // smart_contracts/yield_vault/contract.algo.ts:23
     // public creator = GlobalState<Account>()
-    bytec 4 // "creator"
+    bytec_2 // "creator"
     // smart_contracts/yield_vault/contract.algo.ts:157
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     app_global_get_ex
@@ -639,7 +657,7 @@ setPause:
     ==
     bnz setPause_bool_true@3
     txn Sender
-    bytec 6 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    bytec 5 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
     ==
     bz setPause_bool_false@4
 
@@ -652,7 +670,7 @@ setPause_bool_merge@5:
     assert // Admin only
     // smart_contracts/yield_vault/contract.algo.ts:29
     // public isPaused = GlobalState<boolean>()
-    bytec_2 // "isPaused"
+    bytec_3 // "isPaused"
     // smart_contracts/yield_vault/contract.algo.ts:158
     // this.isPaused.value = paused
     dig 1
@@ -679,7 +697,7 @@ getBalance:
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
     // smart_contracts/yield_vault/contract.algo.ts:32
     // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
-    bytec_3 // "d"
+    bytec 4 // "d"
     dig 1
     concat
     // smart_contracts/yield_vault/contract.algo.ts:165
@@ -754,6 +772,43 @@ getBalance_after_if_else@4:
     b getBalance_after_inlined_smart_contracts/yield_vault/contract.algo.ts::YieldVault.getBalance@5
 
 
+// smart_contracts/yield_vault/contract.algo.ts::YieldVault.deleteApplication[routing]() -> void:
+deleteApplication:
+    // smart_contracts/yield_vault/contract.algo.ts:216
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/yield_vault/contract.algo.ts:23
+    // public creator = GlobalState<Account>()
+    bytec_2 // "creator"
+    // smart_contracts/yield_vault/contract.algo.ts:216
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz deleteApplication_bool_true@3
+    txn Sender
+    bytec 5 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz deleteApplication_bool_false@4
+
+deleteApplication_bool_true@3:
+    intc_1 // 1
+
+deleteApplication_bool_merge@5:
+    // smart_contracts/yield_vault/contract.algo.ts:216
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    assert // Admin only
+    // smart_contracts/yield_vault/contract.algo.ts:215
+    // public deleteApplication(): void {
+    intc_1 // 1
+    return
+
+deleteApplication_bool_false@4:
+    intc_0 // 0
+    b deleteApplication_bool_merge@5
+
+
 // smart_contracts/yield_vault/contract.algo.ts::YieldVault.accrueYield(user: bytes) -> void:
 accrueYield:
     // smart_contracts/yield_vault/contract.algo.ts:179
@@ -764,7 +819,7 @@ accrueYield:
     dup
     // smart_contracts/yield_vault/contract.algo.ts:32
     // public deposits = BoxMap<Account, uint64>({ keyPrefix: 'd' })
-    bytec_3 // "d"
+    bytec 4 // "d"
     frame_dig -1
     concat
     dup

@@ -4,26 +4,44 @@
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
     intcblock 0 1 8 4
-    bytecblock "usdcAssetId" "creator" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "l" "isPaused" "totalLoansIssued" "totalRepaid" "loanCounter" "u"
+    bytecblock "usdcAssetId" "creator" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "l" "u" "isPaused" "totalLoansIssued" "totalRepaid" "loanCounter" 0x151f7c75
+    // smart_contracts/loan_pool/contract.algo.ts:40
+    // export class LoanPool extends Contract {
+    pushbytes 0x2487c32c // method "deleteApplication()void"
+    txna ApplicationArgs 0
+    match main_deleteApplication_route@2
+
+main_switch_case_next@3:
     // smart_contracts/loan_pool/contract.algo.ts:40
     // export class LoanPool extends Contract {
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
     txn ApplicationID
-    bz main_create_NoOp@12
-    pushbytess 0xa0cadf8a 0xba238067 0xfed5acb5 0x6bd270e3 0x90d36c2d 0x2d7c8022 0x22ab1644 0x05ae094e // method "bootstrap(uint64)void", method "depositToPool(axfer)void", method "requestLoan(uint64,string,pay)void", method "approveLoan(uint64,uint64,uint64)void", method "disburseLoan(uint64)void", method "repayLoan(uint64,axfer)void", method "forceClearUserLoan(address)void", method "getPoolBalance()uint64"
+    bz main_create_NoOp@15
+    pushbytess 0xa0cadf8a 0xba238067 0xfed5acb5 0x6bd270e3 0x90d36c2d 0x2d7c8022 0x14577657 0x22ab1644 0x05ae094e // method "bootstrap(uint64)void", method "depositToPool(axfer)void", method "requestLoan(uint64,string,pay)void", method "approveLoan(uint64,uint64,uint64)void", method "disburseLoan(uint64)void", method "repayLoan(uint64,axfer)void", method "getLoanByBorrower(address)(uint64,address,uint64,uint64,string,uint64,uint64,uint64,uint64,uint64,uint64,uint64)", method "forceClearUserLoan(address)void", method "getPoolBalance()uint64"
     txna ApplicationArgs 0
-    match bootstrap depositToPool requestLoan approveLoan disburseLoan repayLoan forceClearUserLoan getPoolBalance
+    match bootstrap depositToPool requestLoan approveLoan disburseLoan repayLoan getLoanByBorrower forceClearUserLoan getPoolBalance
     err
 
-main_create_NoOp@12:
+main_create_NoOp@15:
     // smart_contracts/loan_pool/contract.algo.ts:40
     // export class LoanPool extends Contract {
     pushbytes 0xb8447b36 // method "createApplication()void"
     txna ApplicationArgs 0
     match createApplication
     err
+
+main_deleteApplication_route@2:
+    // smart_contracts/loan_pool/contract.algo.ts:245
+    // public deleteApplication(): void {
+    txn OnCompletion
+    pushint 5 // DeleteApplication
+    ==
+    txn ApplicationID
+    &&
+    assert // OnCompletion must be DeleteApplication && can only call when not creating
+    b deleteApplication
 
 
 // smart_contracts/loan_pool/contract.algo.ts::LoanPool.createApplication[routing]() -> void:
@@ -37,28 +55,28 @@ createApplication:
     app_global_put
     // smart_contracts/loan_pool/contract.algo.ts:46
     // public isPaused = GlobalState<boolean>()
-    bytec 4 // "isPaused"
+    bytec 5 // "isPaused"
     // smart_contracts/loan_pool/contract.algo.ts:61
     // this.isPaused.value = false
     intc_0 // 0
     app_global_put
     // smart_contracts/loan_pool/contract.algo.ts:48
     // public totalLoansIssued = GlobalState<uint64>()
-    bytec 5 // "totalLoansIssued"
+    bytec 6 // "totalLoansIssued"
     // smart_contracts/loan_pool/contract.algo.ts:62
     // this.totalLoansIssued.value = Uint64(0)
     intc_0 // 0
     app_global_put
     // smart_contracts/loan_pool/contract.algo.ts:49
     // public totalRepaid = GlobalState<uint64>()
-    bytec 6 // "totalRepaid"
+    bytec 7 // "totalRepaid"
     // smart_contracts/loan_pool/contract.algo.ts:63
     // this.totalRepaid.value = Uint64(0)
     intc_0 // 0
     app_global_put
     // smart_contracts/loan_pool/contract.algo.ts:50
     // public loanCounter = GlobalState<uint64>()
-    bytec 7 // "loanCounter"
+    bytec 8 // "loanCounter"
     // smart_contracts/loan_pool/contract.algo.ts:64
     // this.loanCounter.value = Uint64(1000) // Start from 1000
     pushint 1000 // 1000
@@ -198,7 +216,7 @@ depositToPool:
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:46
     // public isPaused = GlobalState<boolean>()
-    bytec 4 // "isPaused"
+    bytec 5 // "isPaused"
     // smart_contracts/loan_pool/contract.algo.ts:89
     // assert(!this.isPaused.value, 'Paused')
     app_global_get_ex
@@ -312,7 +330,7 @@ requestLoan:
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:46
     // public isPaused = GlobalState<boolean>()
-    bytec 4 // "isPaused"
+    bytec 5 // "isPaused"
     // smart_contracts/loan_pool/contract.algo.ts:103
     // assert(!this.isPaused.value, 'Paused')
     app_global_get_ex
@@ -340,7 +358,7 @@ requestLoan_bool_merge@5:
     assert // Invalid amount (5-500 USDC)
     // smart_contracts/loan_pool/contract.algo.ts:54
     // public userLoans = BoxMap<Account, uint64>({ keyPrefix: 'u' }) // User to active loan ID
-    bytec 8 // "u"
+    bytec 4 // "u"
     dig 1
     concat
     dup
@@ -382,7 +400,7 @@ requestLoan_bool_merge@9:
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:50
     // public loanCounter = GlobalState<uint64>()
-    bytec 7 // "loanCounter"
+    bytec 8 // "loanCounter"
     // smart_contracts/loan_pool/contract.algo.ts:115
     // const loanId = Uint64(this.loanCounter.value + 1)
     app_global_get_ex
@@ -391,7 +409,7 @@ requestLoan_bool_merge@9:
     +
     // smart_contracts/loan_pool/contract.algo.ts:50
     // public loanCounter = GlobalState<uint64>()
-    bytec 7 // "loanCounter"
+    bytec 8 // "loanCounter"
     // smart_contracts/loan_pool/contract.algo.ts:116
     // this.loanCounter.value = loanId
     dig 1
@@ -672,7 +690,7 @@ disburseLoan_bool_merge@5:
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:48
     // public totalLoansIssued = GlobalState<uint64>()
-    bytec 5 // "totalLoansIssued"
+    bytec 6 // "totalLoansIssued"
     // smart_contracts/loan_pool/contract.algo.ts:169
     // this.totalLoansIssued.value = this.totalLoansIssued.value + 1
     app_global_get_ex
@@ -681,7 +699,7 @@ disburseLoan_bool_merge@5:
     +
     // smart_contracts/loan_pool/contract.algo.ts:48
     // public totalLoansIssued = GlobalState<uint64>()
-    bytec 5 // "totalLoansIssued"
+    bytec 6 // "totalLoansIssued"
     // smart_contracts/loan_pool/contract.algo.ts:169
     // this.totalLoansIssued.value = this.totalLoansIssued.value + 1
     swap
@@ -889,7 +907,7 @@ repayLoan:
     extract 8 32
     // smart_contracts/loan_pool/contract.algo.ts:54
     // public userLoans = BoxMap<Account, uint64>({ keyPrefix: 'u' }) // User to active loan ID
-    bytec 8 // "u"
+    bytec 4 // "u"
     swap
     concat
     // smart_contracts/loan_pool/contract.algo.ts:209
@@ -902,7 +920,7 @@ repayLoan:
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:49
     // public totalRepaid = GlobalState<uint64>()
-    bytec 6 // "totalRepaid"
+    bytec 7 // "totalRepaid"
     // smart_contracts/loan_pool/contract.algo.ts:210
     // this.totalRepaid.value = this.totalRepaid.value + 1
     app_global_get_ex
@@ -911,7 +929,7 @@ repayLoan:
     +
     // smart_contracts/loan_pool/contract.algo.ts:49
     // public totalRepaid = GlobalState<uint64>()
-    bytec 6 // "totalRepaid"
+    bytec 7 // "totalRepaid"
     // smart_contracts/loan_pool/contract.algo.ts:210
     // this.totalRepaid.value = this.totalRepaid.value + 1
     swap
@@ -926,9 +944,59 @@ repayLoan:
     return
 
 
+// smart_contracts/loan_pool/contract.algo.ts::LoanPool.getLoanByBorrower[routing]() -> void:
+getLoanByBorrower:
+    // smart_contracts/loan_pool/contract.algo.ts:218
+    // public getLoanByBorrower(borrower: Account): LoanRecord {
+    txna ApplicationArgs 1
+    dup
+    len
+    pushint 32 // 32
+    ==
+    assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
+    // smart_contracts/loan_pool/contract.algo.ts:54
+    // public userLoans = BoxMap<Account, uint64>({ keyPrefix: 'u' }) // User to active loan ID
+    bytec 4 // "u"
+    swap
+    concat
+    // smart_contracts/loan_pool/contract.algo.ts:219
+    // const loanId = this.userLoans(borrower).get({ default: Uint64(0) })
+    box_get
+    swap
+    btoi
+    intc_0 // 0
+    swap
+    uncover 2
+    select
+    // smart_contracts/loan_pool/contract.algo.ts:220
+    // assert(loanId > 0, 'No active loan')
+    dup
+    assert // No active loan
+    // smart_contracts/loan_pool/contract.algo.ts:221
+    // return clone(this.loans(loanId).value)
+    itob
+    // smart_contracts/loan_pool/contract.algo.ts:53
+    // public loans = BoxMap<uint64, LoanRecord>({ keyPrefix: 'l' })
+    bytec_3 // "l"
+    swap
+    concat
+    // smart_contracts/loan_pool/contract.algo.ts:221
+    // return clone(this.loans(loanId).value)
+    box_get
+    assert // Box must have value
+    // smart_contracts/loan_pool/contract.algo.ts:218
+    // public getLoanByBorrower(borrower: Account): LoanRecord {
+    bytec 9 // 0x151f7c75
+    swap
+    concat
+    log
+    intc_1 // 1
+    return
+
+
 // smart_contracts/loan_pool/contract.algo.ts::LoanPool.forceClearUserLoan[routing]() -> void:
 forceClearUserLoan:
-    // smart_contracts/loan_pool/contract.algo.ts:219
+    // smart_contracts/loan_pool/contract.algo.ts:228
     // public forceClearUserLoan(user: Account): void {
     txna ApplicationArgs 1
     dup
@@ -936,14 +1004,14 @@ forceClearUserLoan:
     pushint 32 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/loan_pool/contract.algo.ts:220
+    // smart_contracts/loan_pool/contract.algo.ts:229
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
     txn Sender
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:42
     // public creator = GlobalState<Account>()
     bytec_1 // "creator"
-    // smart_contracts/loan_pool/contract.algo.ts:220
+    // smart_contracts/loan_pool/contract.algo.ts:229
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
     app_global_get_ex
     assert // check GlobalState exists
@@ -958,24 +1026,24 @@ forceClearUserLoan_bool_true@3:
     intc_1 // 1
 
 forceClearUserLoan_bool_merge@5:
-    // smart_contracts/loan_pool/contract.algo.ts:220
+    // smart_contracts/loan_pool/contract.algo.ts:229
     // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
     assert // Admin only
     // smart_contracts/loan_pool/contract.algo.ts:54
     // public userLoans = BoxMap<Account, uint64>({ keyPrefix: 'u' }) // User to active loan ID
-    bytec 8 // "u"
+    bytec 4 // "u"
     dig 1
     concat
-    // smart_contracts/loan_pool/contract.algo.ts:221
+    // smart_contracts/loan_pool/contract.algo.ts:230
     // this.userLoans(user).value = Uint64(0)
     intc_0 // 0
     itob
     box_put
-    // smart_contracts/loan_pool/contract.algo.ts:222
+    // smart_contracts/loan_pool/contract.algo.ts:231
     // log('USER_STATE_CLEARED')
     pushbytes "USER_STATE_CLEARED"
     log
-    // smart_contracts/loan_pool/contract.algo.ts:219
+    // smart_contracts/loan_pool/contract.algo.ts:228
     // public forceClearUserLoan(user: Account): void {
     intc_1 // 1
     return
@@ -987,29 +1055,66 @@ forceClearUserLoan_bool_false@4:
 
 // smart_contracts/loan_pool/contract.algo.ts::LoanPool.getPoolBalance[routing]() -> void:
 getPoolBalance:
-    // smart_contracts/loan_pool/contract.algo.ts:229
+    // smart_contracts/loan_pool/contract.algo.ts:238
     // const [bal, ok] = op.AssetHolding.assetBalance(Global.currentApplicationAddress, this.usdcAssetId.value)
     global CurrentApplicationAddress
     intc_0 // 0
     // smart_contracts/loan_pool/contract.algo.ts:44
     // public usdcAssetId = GlobalState<uint64>()
     bytec_0 // "usdcAssetId"
-    // smart_contracts/loan_pool/contract.algo.ts:229
+    // smart_contracts/loan_pool/contract.algo.ts:238
     // const [bal, ok] = op.AssetHolding.assetBalance(Global.currentApplicationAddress, this.usdcAssetId.value)
     app_global_get_ex
     assert // check GlobalState exists
     asset_holding_get AssetBalance
-    // smart_contracts/loan_pool/contract.algo.ts:230
+    // smart_contracts/loan_pool/contract.algo.ts:239
     // return ok ? bal : Uint64(0)
     intc_0 // 0
     cover 2
     select
-    // smart_contracts/loan_pool/contract.algo.ts:228
+    // smart_contracts/loan_pool/contract.algo.ts:237
     // public getPoolBalance(): uint64 {
     itob
-    pushbytes 0x151f7c75
+    bytec 9 // 0x151f7c75
     swap
     concat
     log
     intc_1 // 1
     return
+
+
+// smart_contracts/loan_pool/contract.algo.ts::LoanPool.deleteApplication[routing]() -> void:
+deleteApplication:
+    // smart_contracts/loan_pool/contract.algo.ts:246
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    txn Sender
+    intc_0 // 0
+    // smart_contracts/loan_pool/contract.algo.ts:42
+    // public creator = GlobalState<Account>()
+    bytec_1 // "creator"
+    // smart_contracts/loan_pool/contract.algo.ts:246
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz deleteApplication_bool_true@3
+    txn Sender
+    bytec_2 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz deleteApplication_bool_false@4
+
+deleteApplication_bool_true@3:
+    intc_1 // 1
+
+deleteApplication_bool_merge@5:
+    // smart_contracts/loan_pool/contract.algo.ts:246
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    assert // Admin only
+    // smart_contracts/loan_pool/contract.algo.ts:245
+    // public deleteApplication(): void {
+    intc_1 // 1
+    return
+
+deleteApplication_bool_false@4:
+    intc_0 // 0
+    b deleteApplication_bool_merge@5

@@ -4,26 +4,44 @@
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
     intcblock 1 0 32
-    bytecblock "creator" "s" "v" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) 0x151f7c75
+    bytecblock "creator" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "s" "v" 0x151f7c75
+    // smart_contracts/trust_oracle/contract.algo.ts:16
+    // export class TrustOracle extends Contract {
+    pushbytes 0x2487c32c // method "deleteApplication()void"
+    txna ApplicationArgs 0
+    match main_deleteApplication_route@2
+
+main_switch_case_next@3:
     // smart_contracts/trust_oracle/contract.algo.ts:16
     // export class TrustOracle extends Contract {
     txn OnCompletion
     !
     assert // OnCompletion must be NoOp
     txn ApplicationID
-    bz main_create_NoOp@8
+    bz main_create_NoOp@10
     pushbytess 0xef53119c 0xb86602f9 0x978345d1 0xe31ed474 // method "attest(address,uint64,pay)void", method "revokeAttestation(address)void", method "getScore(address)uint64", method "isVerified(address)bool"
     txna ApplicationArgs 0
     match attest revokeAttestation getScore isVerified
     err
 
-main_create_NoOp@8:
+main_create_NoOp@10:
     // smart_contracts/trust_oracle/contract.algo.ts:16
     // export class TrustOracle extends Contract {
     pushbytes 0xb8447b36 // method "createApplication()void"
     txna ApplicationArgs 0
     match createApplication
     err
+
+main_deleteApplication_route@2:
+    // smart_contracts/trust_oracle/contract.algo.ts:83
+    // public deleteApplication(): void {
+    txn OnCompletion
+    pushint 5 // DeleteApplication
+    ==
+    txn ApplicationID
+    &&
+    assert // OnCompletion must be DeleteApplication && can only call when not creating
+    b deleteApplication
 
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.createApplication[routing]() -> void:
@@ -81,7 +99,7 @@ attest:
     ==
     bnz attest_bool_true@3
     txn Sender
-    bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
     ==
     bz attest_bool_false@4
 
@@ -100,7 +118,7 @@ attest_bool_merge@5:
     assert // Score must be <= 1000
     // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
-    bytec_1 // "s"
+    bytec_2 // "s"
     dig 3
     concat
     dup
@@ -134,7 +152,7 @@ attest_after_if_else@7:
     box_put
     // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
-    bytec_2 // "v"
+    bytec_3 // "v"
     dig 3
     dup
     cover 2
@@ -195,7 +213,7 @@ revokeAttestation:
     ==
     bnz revokeAttestation_bool_true@3
     txn Sender
-    bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
     ==
     bz revokeAttestation_bool_false@4
 
@@ -208,7 +226,7 @@ revokeAttestation_bool_merge@5:
     assert // Admin only
     // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
-    bytec_2 // "v"
+    bytec_3 // "v"
     dig 1
     dup
     cover 2
@@ -220,7 +238,7 @@ revokeAttestation_bool_merge@5:
     box_put
     // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
-    bytec_1 // "s"
+    bytec_2 // "s"
     swap
     concat
     // smart_contracts/trust_oracle/contract.algo.ts:62
@@ -254,7 +272,7 @@ getScore:
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
     // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
-    bytec_1 // "s"
+    bytec_2 // "s"
     swap
     concat
     // smart_contracts/trust_oracle/contract.algo.ts:70
@@ -289,7 +307,7 @@ isVerified:
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
     // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
-    bytec_2 // "v"
+    bytec_3 // "v"
     swap
     concat
     // smart_contracts/trust_oracle/contract.algo.ts:77
@@ -313,3 +331,40 @@ isVerified:
     log
     intc_0 // 1
     return
+
+
+// smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.deleteApplication[routing]() -> void:
+deleteApplication:
+    // smart_contracts/trust_oracle/contract.algo.ts:84
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    txn Sender
+    intc_1 // 0
+    // smart_contracts/trust_oracle/contract.algo.ts:18
+    // public creator = GlobalState<Account>()
+    bytec_0 // "creator"
+    // smart_contracts/trust_oracle/contract.algo.ts:84
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    app_global_get_ex
+    assert // check GlobalState exists
+    ==
+    bnz deleteApplication_bool_true@3
+    txn Sender
+    bytec_1 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz deleteApplication_bool_false@4
+
+deleteApplication_bool_true@3:
+    intc_0 // 1
+
+deleteApplication_bool_merge@5:
+    // smart_contracts/trust_oracle/contract.algo.ts:84
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, "Admin only")
+    assert // Admin only
+    // smart_contracts/trust_oracle/contract.algo.ts:83
+    // public deleteApplication(): void {
+    intc_0 // 1
+    return
+
+deleteApplication_bool_false@4:
+    intc_1 // 0
+    b deleteApplication_bool_merge@5
