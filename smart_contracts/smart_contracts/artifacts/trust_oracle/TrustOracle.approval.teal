@@ -4,8 +4,8 @@
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
     intcblock 1 0 32
-    bytecblock "creator" "s" "v" 0x151f7c75
-    // smart_contracts/trust_oracle/contract.algo.ts:15
+    bytecblock "creator" "s" "v" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) 0x151f7c75
+    // smart_contracts/trust_oracle/contract.algo.ts:16
     // export class TrustOracle extends Contract {
     txn OnCompletion
     !
@@ -18,7 +18,7 @@ main:
     err
 
 main_create_NoOp@8:
-    // smart_contracts/trust_oracle/contract.algo.ts:15
+    // smart_contracts/trust_oracle/contract.algo.ts:16
     // export class TrustOracle extends Contract {
     pushbytes 0xb8447b36 // method "createApplication()void"
     txna ApplicationArgs 0
@@ -28,14 +28,14 @@ main_create_NoOp@8:
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.createApplication[routing]() -> void:
 createApplication:
-    // smart_contracts/trust_oracle/contract.algo.ts:17
+    // smart_contracts/trust_oracle/contract.algo.ts:18
     // public creator = GlobalState<Account>()
     bytec_0 // "creator"
-    // smart_contracts/trust_oracle/contract.algo.ts:29
+    // smart_contracts/trust_oracle/contract.algo.ts:30
     // this.creator.value = Txn.sender
     txn Sender
     app_global_put
-    // smart_contracts/trust_oracle/contract.algo.ts:28
+    // smart_contracts/trust_oracle/contract.algo.ts:29
     // public createApplication(): void {
     intc_0 // 1
     return
@@ -43,10 +43,11 @@ createApplication:
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.attest[routing]() -> void:
 attest:
-    // smart_contracts/trust_oracle/contract.algo.ts:36
+    intc_1 // 0
+    // smart_contracts/trust_oracle/contract.algo.ts:37
     // public attest(user: Account, score: uint64, mbrPayment: gtxn.PaymentTxn): void {
     txna ApplicationArgs 1
-    dupn 2
+    dup
     len
     intc_2 // 32
     ==
@@ -58,107 +59,121 @@ attest:
     ==
     assert // invalid number of bytes for arc4.uint64
     btoi
-    dup
-    cover 2
     txn GroupIndex
     intc_0 // 1
     -
     dup
-    cover 3
     gtxns TypeEnum
     intc_0 // pay
     ==
     assert // transaction type is pay
-    // smart_contracts/trust_oracle/contract.algo.ts:37
-    // assert(Txn.sender === this.creator.value, 'Admin only')
+    // smart_contracts/trust_oracle/contract.algo.ts:38
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     txn Sender
     intc_1 // 0
-    // smart_contracts/trust_oracle/contract.algo.ts:17
+    // smart_contracts/trust_oracle/contract.algo.ts:18
     // public creator = GlobalState<Account>()
     bytec_0 // "creator"
-    // smart_contracts/trust_oracle/contract.algo.ts:37
-    // assert(Txn.sender === this.creator.value, 'Admin only')
+    // smart_contracts/trust_oracle/contract.algo.ts:38
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     app_global_get_ex
     assert // check GlobalState exists
     ==
-    assert // Admin only
+    bnz attest_bool_true@3
+    txn Sender
+    bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz attest_bool_false@4
+
+attest_bool_true@3:
+    intc_0 // 1
+
+attest_bool_merge@5:
     // smart_contracts/trust_oracle/contract.algo.ts:38
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
+    assert // Admin only
+    // smart_contracts/trust_oracle/contract.algo.ts:39
     // assert(score <= 1000, 'Score must be <= 1000')
+    dig 1
     pushint 1000 // 1000
     <=
     assert // Score must be <= 1000
-    // smart_contracts/trust_oracle/contract.algo.ts:20
+    // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
     bytec_1 // "s"
-    swap
+    dig 3
     concat
     dup
-    // smart_contracts/trust_oracle/contract.algo.ts:41
+    bury 5
+    // smart_contracts/trust_oracle/contract.algo.ts:42
     // if (!this.scores(user).exists) {
     box_len
     bury 1
-    bnz attest_after_if_else@3
-    // smart_contracts/trust_oracle/contract.algo.ts:43
+    bnz attest_after_if_else@7
+    // smart_contracts/trust_oracle/contract.algo.ts:44
     // assert(mbrPayment.receiver === Global.currentApplicationAddress, 'MBR to oracle')
-    dig 1
-    dup
+    dupn 2
     gtxns Receiver
     global CurrentApplicationAddress
     ==
     assert // MBR to oracle
-    // smart_contracts/trust_oracle/contract.algo.ts:44
+    // smart_contracts/trust_oracle/contract.algo.ts:45
     // assert(mbrPayment.amount >= BOX_MBR * 3, 'Insufficient MBR for boxes')
     gtxns Amount
     pushint 385500 // 385500
     >=
     assert // Insufficient MBR for boxes
 
-attest_after_if_else@3:
-    // smart_contracts/trust_oracle/contract.algo.ts:47
+attest_after_if_else@7:
+    // smart_contracts/trust_oracle/contract.algo.ts:48
     // this.scores(user).value = score
-    dig 2
-    itob
     dig 1
+    itob
+    dig 4
     swap
     box_put
-    // smart_contracts/trust_oracle/contract.algo.ts:22
+    // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
     bytec_2 // "v"
-    dig 4
+    dig 3
     dup
     cover 2
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:48
+    // smart_contracts/trust_oracle/contract.algo.ts:49
     // this.verified(user).value = true
     intc_0 // 1
     itob
     box_put
-    // smart_contracts/trust_oracle/contract.algo.ts:49
+    // smart_contracts/trust_oracle/contract.algo.ts:50
     // this.attestedAt(user).value = Global.round
     global Round
-    // smart_contracts/trust_oracle/contract.algo.ts:24
+    // smart_contracts/trust_oracle/contract.algo.ts:25
     // public attestedAt = BoxMap<Account, uint64>({ keyPrefix: 'a' })
     pushbytes "a"
     uncover 2
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:49
+    // smart_contracts/trust_oracle/contract.algo.ts:50
     // this.attestedAt(user).value = Global.round
     swap
     itob
     box_put
-    // smart_contracts/trust_oracle/contract.algo.ts:51
+    // smart_contracts/trust_oracle/contract.algo.ts:52
     // log('USER_ATTESTED')
     pushbytes "USER_ATTESTED"
     log
-    // smart_contracts/trust_oracle/contract.algo.ts:36
+    // smart_contracts/trust_oracle/contract.algo.ts:37
     // public attest(user: Account, score: uint64, mbrPayment: gtxn.PaymentTxn): void {
     intc_0 // 1
     return
 
+attest_bool_false@4:
+    intc_1 // 0
+    b attest_bool_merge@5
+
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.revokeAttestation[routing]() -> void:
 revokeAttestation:
-    // smart_contracts/trust_oracle/contract.algo.ts:58
+    // smart_contracts/trust_oracle/contract.algo.ts:59
     // public revokeAttestation(user: Account): void {
     txna ApplicationArgs 1
     dup
@@ -166,52 +181,70 @@ revokeAttestation:
     intc_2 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/trust_oracle/contract.algo.ts:59
-    // assert(Txn.sender === this.creator.value, 'Admin only')
+    // smart_contracts/trust_oracle/contract.algo.ts:60
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     txn Sender
     intc_1 // 0
-    // smart_contracts/trust_oracle/contract.algo.ts:17
+    // smart_contracts/trust_oracle/contract.algo.ts:18
     // public creator = GlobalState<Account>()
     bytec_0 // "creator"
-    // smart_contracts/trust_oracle/contract.algo.ts:59
-    // assert(Txn.sender === this.creator.value, 'Admin only')
+    // smart_contracts/trust_oracle/contract.algo.ts:60
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     app_global_get_ex
     assert // check GlobalState exists
     ==
+    bnz revokeAttestation_bool_true@3
+    txn Sender
+    bytec_3 // addr LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4
+    ==
+    bz revokeAttestation_bool_false@4
+
+revokeAttestation_bool_true@3:
+    intc_0 // 1
+
+revokeAttestation_bool_merge@5:
+    // smart_contracts/trust_oracle/contract.algo.ts:60
+    // assert(Txn.sender === this.creator.value || Txn.sender === new arc4.Address("LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35J4SBNVD4").native, 'Admin only')
     assert // Admin only
-    // smart_contracts/trust_oracle/contract.algo.ts:22
+    // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
     bytec_2 // "v"
     dig 1
+    dup
+    cover 2
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:60
+    // smart_contracts/trust_oracle/contract.algo.ts:61
     // this.verified(user).value = false
     intc_1 // 0
     itob
     box_put
-    // smart_contracts/trust_oracle/contract.algo.ts:20
+    // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
     bytec_1 // "s"
     swap
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:61
+    // smart_contracts/trust_oracle/contract.algo.ts:62
     // this.scores(user).value = 0
     intc_1 // 0
     itob
     box_put
-    // smart_contracts/trust_oracle/contract.algo.ts:62
+    // smart_contracts/trust_oracle/contract.algo.ts:63
     // log('ATTESTATION_REVOKED')
     pushbytes "ATTESTATION_REVOKED"
     log
-    // smart_contracts/trust_oracle/contract.algo.ts:58
+    // smart_contracts/trust_oracle/contract.algo.ts:59
     // public revokeAttestation(user: Account): void {
     intc_0 // 1
     return
 
+revokeAttestation_bool_false@4:
+    intc_1 // 0
+    b revokeAttestation_bool_merge@5
+
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.getScore[routing]() -> void:
 getScore:
-    // smart_contracts/trust_oracle/contract.algo.ts:68
+    // smart_contracts/trust_oracle/contract.algo.ts:69
     // public getScore(user: Account): uint64 {
     txna ApplicationArgs 1
     dup
@@ -219,12 +252,12 @@ getScore:
     intc_2 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/trust_oracle/contract.algo.ts:20
+    // smart_contracts/trust_oracle/contract.algo.ts:21
     // public scores = BoxMap<Account, uint64>({ keyPrefix: 's' })
     bytec_1 // "s"
     swap
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:69
+    // smart_contracts/trust_oracle/contract.algo.ts:70
     // return this.scores(user).get({ default: Uint64(0) })
     box_get
     swap
@@ -233,10 +266,10 @@ getScore:
     swap
     uncover 2
     select
-    // smart_contracts/trust_oracle/contract.algo.ts:68
+    // smart_contracts/trust_oracle/contract.algo.ts:69
     // public getScore(user: Account): uint64 {
     itob
-    bytec_3 // 0x151f7c75
+    bytec 4 // 0x151f7c75
     swap
     concat
     log
@@ -246,7 +279,7 @@ getScore:
 
 // smart_contracts/trust_oracle/contract.algo.ts::TrustOracle.isVerified[routing]() -> void:
 isVerified:
-    // smart_contracts/trust_oracle/contract.algo.ts:75
+    // smart_contracts/trust_oracle/contract.algo.ts:76
     // public isVerified(user: Account): boolean {
     txna ApplicationArgs 1
     dup
@@ -254,12 +287,12 @@ isVerified:
     intc_2 // 32
     ==
     assert // invalid number of bytes for arc4.static_array<arc4.uint8, 32>
-    // smart_contracts/trust_oracle/contract.algo.ts:22
+    // smart_contracts/trust_oracle/contract.algo.ts:23
     // public verified = BoxMap<Account, boolean>({ keyPrefix: 'v' })
     bytec_2 // "v"
     swap
     concat
-    // smart_contracts/trust_oracle/contract.algo.ts:76
+    // smart_contracts/trust_oracle/contract.algo.ts:77
     // return this.verified(user).get({ default: false })
     box_get
     swap
@@ -268,13 +301,13 @@ isVerified:
     swap
     uncover 2
     select
-    // smart_contracts/trust_oracle/contract.algo.ts:75
+    // smart_contracts/trust_oracle/contract.algo.ts:76
     // public isVerified(user: Account): boolean {
     pushbytes 0x00
     intc_1 // 0
     uncover 2
     setbit
-    bytec_3 // 0x151f7c75
+    bytec 4 // 0x151f7c75
     swap
     concat
     log

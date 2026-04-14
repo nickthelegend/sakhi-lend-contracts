@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": [
-    "../../hello_world/contract.algo.ts"
+    "../../../hello_world/contract.algo.ts"
   ],
   "mappings": ";AAEA;;AAAA;;;AAAA;;;;;;AAAA;;;AAAA;;;;AAAA;AACE;;AAAA;AAAA;;AAAA;AAAA;AAAA;;;AADF;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AACE;;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;;;AACS;;;;;;;;;AAAA;AAAA;AADT;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;;;;;;AAAA;AAAA;AAAA;AAAA;;AAAA",
   "op_pc_offset": 0,
