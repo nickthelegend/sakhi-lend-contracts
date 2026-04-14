@@ -9,7 +9,7 @@ export async function deploy() {
 
   const factory = algorand.client.getTypedAppFactory(TrustOracleFactory, {
     defaultSender: deployer.addr,
-    name: 'SakhiOracle_Local_v1'
+    name: 'SakhiOracle_Release_V1'
   })
 
   // Deploy the app using direct create

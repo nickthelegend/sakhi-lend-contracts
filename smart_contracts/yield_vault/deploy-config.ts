@@ -12,7 +12,7 @@ export async function deploy() {
 
   const factory = algorand.client.getTypedAppFactory(YieldVaultFactory, {
     defaultSender: deployer.addr,
-    name: 'SakhiVault_Local_v1'
+    name: 'SakhiVault_Release_V1'
   })
 
   // Deploy the app using direct create to ensure ABI args are passed
