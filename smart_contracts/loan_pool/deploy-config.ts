@@ -1,18 +1,19 @@
 import { AlgorandClient } from '@algorandfoundation/algokit-utils'
-import { YieldVaultFactory } from '../artifacts/yield_vault/YieldVaultClient'
+import * as algokit from '@algorandfoundation/algokit-utils'
+import { LoanPoolFactory } from '../artifacts/loan_pool/LoanPoolClient'
 
 export async function deploy() {
-  console.log('=== Deploying YieldVault ===')
+  console.log('=== Deploying LoanPool ===')
 
   const algorand = AlgorandClient.fromEnvironment()
   const deployer = await algorand.account.fromEnvironment('DEPLOYER')
 
-  // Use the SUSDC ID we just created
+  // Use the SUSDC ID
   const USDC_ID = process.env.USDC_ID ? BigInt(process.env.USDC_ID) : 758817439n
 
-  const factory = algorand.client.getTypedAppFactory(YieldVaultFactory, {
+  const factory = algorand.client.getTypedAppFactory(LoanPoolFactory, {
     defaultSender: deployer.addr,
-    name: 'SakhiVault_Local_v1'
+    name: 'SakhiPool_Local_v1'
   })
 
   // Deploy the app using direct create to ensure ABI args are passed
@@ -21,13 +22,13 @@ export async function deploy() {
     args: []
   })
   
-  // Create a result-like object
+  // Create a result-like object for the rest of the script
   const deployResult = { operationPerformed: 'create' }
 
-  console.log(`YieldVault deployed at ID: ${appClient.appId} with address: ${appClient.appAddress}`)
+  console.log(`LoanPool deployed at ID: ${appClient.appId} with address: ${appClient.appAddress}`)
 
-  // Fund the app account with 1 ALGO for MB and fees
-  if (deployResult.operationPerformed === 'create') {
+  // Fund and Bootstrap
+  if (['create'].includes(deployResult.operationPerformed)) {
     console.log('Funding app account...')
     await algorand.send.payment({
       amount: (1).algo(),
@@ -44,15 +45,15 @@ export async function deploy() {
           args: [{ type: 'uint64', name: 'asset' }], 
           returns: { type: 'void' } 
       })
-      
+
       await algorand.send.appCall({
         sender: deployer.addr,
         appId: appClient.appId,
         args: [method.getSelector(), encodeUint64(USDC_ID)],
       })
-      
+
       console.log(`Bootstrap successful with Asset ID: ${USDC_ID}`)
-      console.log(`FINAL_VAULT_APP_ID=${appClient.appId}`)
+      console.log(`FINAL_POOL_APP_ID=${appClient.appId}`)
     } catch (e) {
       console.warn('Bootstrap failed:', e)
     }

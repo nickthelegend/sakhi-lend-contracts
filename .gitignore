@@ -168,3 +168,11 @@ cython_debug/
 # NPM
 node_modules
 
+# AlgoKit
+.algokit/
+debug_traces/
+smart_contracts/artifacts/*.ts
+!smart_contracts/artifacts/HelloWorld.approval.teal
+!smart_contracts/artifacts/HelloWorld.clear.teal
+!smart_contracts/artifacts/HelloWorld.arc32.json
+
