@@ -3,31 +3,54 @@
 
 
 main:
-    intcblock 0 1 8 4 1051200000
-    bytecblock "usdcAssetId" "d" "b"
+    intcblock 0 1 4 8 1000001 105120000000
+    bytecblock "usdcAssetId" "b" "isPaused" "d" "creator" "reserveBalance" "DEPOSIT:"
 
 
-    txn NumAppArgs
-    bz main___algots__.defaultCreate@11
     txn OnCompletion
     !
     assert
     txn ApplicationID
-    assert
-    pushbytess 0xa0cadf8a 0x93353186 0x21f1ddff 0xb417a864
+    bz main_create_NoOp@11
+    pushbytess 0xa0cadf8a 0x539d0c8a 0x8685c687 0x21f1ddff 0x4fc1f9ad 0xdaef9d74 0xb417a864
     txna ApplicationArgs 0
-    match bootstrap deposit withdraw getBalance
+    match bootstrap depositFirst depositMore withdraw fundReserves setPause getBalance
     err
 
-main___algots__.defaultCreate@11:
+main_create_NoOp@11:
 
 
-    txn OnCompletion
-    !
-    txn ApplicationID
-    !
-    &&
-    assert
+    pushbytes 0xb8447b36
+    txna ApplicationArgs 0
+    match createApplication
+    err
+
+
+
+createApplication:
+
+
+    bytec 4
+
+
+    txn Sender
+    app_global_put
+
+
+    bytec_2
+
+
+    intc_0
+    app_global_put
+
+
+    bytec 5
+
+
+    intc_0
+    app_global_put
+
+
     intc_1
     return
 
@@ -39,10 +62,23 @@ bootstrap:
     txna ApplicationArgs 1
     dup
     len
-    intc_2
+    intc_3
     ==
     assert
     btoi
+
+
+    txn Sender
+    intc_0
+
+
+    bytec 4
+
+
+    app_global_get_ex
+    assert
+    ==
+    assert
 
 
     intc_0
@@ -60,8 +96,46 @@ bootstrap:
     bytec_0
 
 
-    swap
+    dig 1
     app_global_put
+
+
+
+
+
+
+
+
+    itxn_begin
+
+
+    global CurrentApplicationAddress
+    itxn_field AssetReceiver
+
+
+    intc_0
+    itxn_field AssetAmount
+    itxn_field XferAsset
+
+
+
+
+
+
+
+    intc_2
+    itxn_field TypeEnum
+    intc_0
+    itxn_field Fee
+
+
+
+
+
+
+
+
+    itxn_submit
 
 
     pushbytes "Vault bootstrapped"
@@ -73,7 +147,129 @@ bootstrap:
 
 
 
-deposit:
+depositFirst:
+
+
+    txn GroupIndex
+    pushint 2
+    -
+    dup
+    gtxns TypeEnum
+    intc_2
+    ==
+    assert
+    txn GroupIndex
+    intc_1
+    -
+    dup
+    gtxns TypeEnum
+    intc_1
+    ==
+    assert
+
+
+    intc_0
+
+
+    bytec_2
+
+
+    app_global_get_ex
+    assert
+    !
+    assert
+
+
+    dig 1
+    gtxns XferAsset
+    intc_0
+
+
+    bytec_0
+
+
+    app_global_get_ex
+    assert
+    ==
+    assert
+
+
+    dig 1
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert
+
+
+    swap
+    gtxns AssetAmount
+    dup
+    intc 4
+    >=
+    assert
+
+
+    txn Sender
+
+
+    bytec_3
+    dig 1
+    concat
+
+
+    dup
+    box_len
+    bury 1
+    !
+    assert
+
+
+    dig 3
+    gtxns Receiver
+    global CurrentApplicationAddress
+    ==
+    assert
+
+
+    uncover 3
+    gtxns Amount
+    pushint 257000
+    >=
+    assert
+
+
+    uncover 2
+    itob
+    swap
+    dig 1
+    box_put
+
+
+    global Round
+
+
+    bytec_1
+    uncover 3
+    concat
+
+
+    swap
+    itob
+    box_put
+
+
+    bytec 6
+    swap
+    concat
+    log
+
+
+    intc_1
+    return
+
+
+
+depositMore:
 
 
     txn GroupIndex
@@ -81,8 +277,20 @@ deposit:
     -
     dup
     gtxns TypeEnum
-    intc_3
+    intc_2
     ==
+    assert
+
+
+    intc_0
+
+
+    bytec_2
+
+
+    app_global_get_ex
+    assert
+    !
     assert
 
 
@@ -107,30 +315,38 @@ deposit:
     assert
 
 
+    gtxns AssetAmount
+    dup
+    intc 4
+    >=
+    assert
+
+
     txn Sender
 
 
-    dup
-    callsub accrueYield
-
-
-    bytec_1
+    bytec_3
     dig 1
     concat
 
 
     dup
+    box_len
+    bury 1
+    assert
+
+
+    dig 1
+    callsub accrueYield
+
+
+    dup
     box_get
-    swap
+    assert
     btoi
-    intc_0
-    swap
-    uncover 2
-    select
 
 
-    uncover 3
-    gtxns AssetAmount
+    dig 3
     +
     itob
     box_put
@@ -139,7 +355,7 @@ deposit:
     global Round
 
 
-    bytec_2
+    bytec_1
     uncover 2
     concat
 
@@ -147,6 +363,13 @@ deposit:
     swap
     itob
     box_put
+
+
+    itob
+    bytec 6
+    swap
+    concat
+    log
 
 
     intc_1
@@ -160,10 +383,22 @@ withdraw:
     txna ApplicationArgs 1
     dup
     len
-    intc_2
+    intc_3
     ==
     assert
     btoi
+
+
+    intc_0
+
+
+    bytec_2
+
+
+    app_global_get_ex
+    assert
+    !
+    assert
 
 
     txn Sender
@@ -173,7 +408,7 @@ withdraw:
     callsub accrueYield
 
 
-    bytec_1
+    bytec_3
     dig 1
     concat
 
@@ -200,6 +435,19 @@ withdraw:
     box_put
 
 
+    global Round
+
+
+    bytec_1
+    dig 2
+    concat
+
+
+    swap
+    itob
+    box_put
+
+
 
 
 
@@ -217,9 +465,11 @@ withdraw:
 
     app_global_get_ex
     assert
-    itxn_field XferAsset
+    swap
     itxn_field AssetReceiver
+    dig 1
     itxn_field AssetAmount
+    itxn_field XferAsset
 
 
 
@@ -227,7 +477,7 @@ withdraw:
 
 
 
-    intc_3
+    intc_2
     itxn_field TypeEnum
     intc_0
     itxn_field Fee
@@ -240,6 +490,127 @@ withdraw:
 
 
     itxn_submit
+
+
+    itob
+    pushbytes "WITHDRAW:"
+    swap
+    concat
+    log
+
+
+    intc_1
+    return
+
+
+
+fundReserves:
+
+
+    txn GroupIndex
+    intc_1
+    -
+    dup
+    gtxns TypeEnum
+    intc_2
+    ==
+    assert
+
+
+    txn Sender
+    intc_0
+
+
+    bytec 4
+
+
+    app_global_get_ex
+    assert
+    ==
+    assert
+
+
+    dup
+    gtxns XferAsset
+    intc_0
+
+
+    bytec_0
+
+
+    app_global_get_ex
+    assert
+    ==
+    assert
+
+
+    dup
+    gtxns AssetReceiver
+    global CurrentApplicationAddress
+    ==
+    assert
+
+
+    intc_0
+
+
+    bytec 5
+
+
+    app_global_get_ex
+    assert
+    swap
+    gtxns AssetAmount
+    +
+
+
+    bytec 5
+
+
+    swap
+    app_global_put
+
+
+    pushbytes "RESERVES_FUNDED"
+    log
+
+
+    intc_1
+    return
+
+
+
+setPause:
+
+
+    txna ApplicationArgs 1
+    dup
+    len
+    intc_1
+    ==
+    assert
+    intc_0
+    getbit
+
+
+    txn Sender
+    intc_0
+
+
+    bytec 4
+
+
+    app_global_get_ex
+    assert
+    ==
+    assert
+
+
+    bytec_2
+
+
+    swap
+    app_global_put
 
 
     intc_1
@@ -258,7 +629,7 @@ getBalance:
     assert
 
 
-    bytec_1
+    bytec_3
     dig 1
     concat
 
@@ -274,7 +645,7 @@ getBalance:
     uncover 2
 
 
-    bytec_2
+    bytec_1
     swap
     concat
 
@@ -301,12 +672,16 @@ getBalance:
 
     dig 1
     dup
-    pushint 6
+    pushint 600
     *
+
+
     dig 2
-    *
-    intc 4
-    /
+    mulw
+
+
+    intc 5
+    divw
 
 
     +
@@ -339,7 +714,7 @@ accrueYield:
     dup
 
 
-    bytec_1
+    bytec_3
     frame_dig -1
     concat
     dup
@@ -361,7 +736,7 @@ accrueYield:
     global Round
 
 
-    bytec_2
+    bytec_1
     frame_dig -1
     concat
 
@@ -376,7 +751,7 @@ accrueYield:
 accrueYield_after_if_else@2:
 
 
-    bytec_2
+    bytec_1
     frame_dig -1
     concat
     dup
@@ -403,12 +778,16 @@ accrueYield_after_if_else@2:
 
 
     frame_dig 4
-    pushint 6
+    pushint 600
     *
+
+
     frame_dig 1
-    *
-    intc 4
-    /
+    mulw
+
+
+    intc 5
+    divw
     dup
     frame_bury 2
 

@@ -31,7 +31,7 @@ async function deploy() {
   console.log('Creating Mock USDC...')
   const usdcResult = await algorand.send.assetCreate({
     sender: creatorAddress,
-    total: BigInt(1_000_000_000_000), // 1M USDC (6 decimals)
+    total: BigInt(10_000_000_000) * BigInt(1_000_000), // 10 Billion USDC
     decimals: 6,
     assetName: 'Mock USDC',
     unitName: 'USDC',
