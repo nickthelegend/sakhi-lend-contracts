@@ -1,0 +1,75 @@
+{
+  "last-round": 170,
+  "txn-groups": [
+    {
+      "txn-results": [
+        {
+          "txn-result": {
+            "txn": {
+              "txn": {
+                "type": "appl",
+                "snd": "6OZXX64HQ4NOWE2SLK3NZ7JVREITHBQFQNN37EC65PENXZAF3ZN64S5R6M",
+                "lv": 1170,
+                "gen": "dockernet-v1",
+                "gh": "HJ5qzwQKWVGRVmn7XPeOpLtRqmPPwJE4c26zzKogVaI=",
+                "fee": 1000,
+                "fv": 170,
+                "note": "QUxHT0tJVF9ERVBMT1lFUjpqeyJuYW1lIjoiWWllbGRWYXVsdCIsInZlcnNpb24iOiIxLjAifQ==",
+                "apap": "CyAGAAEECMGEPYDQj82HAyYIC3VzZGNBc3NldElkAWIHY3JlYXRvcghpc1BhdXNlZAFkIFkMRo2QglNpQqeJVb8R/zTZtk0bqPZm67hik+YQMd9TDnJlc2VydmVCYWxhbmNlCERFUE9TSVQ6gAQkh8MsNhoAjgEAUDEZFEQxGEEAOYIHBKDK34oEU50MigSGhcaHBCHx3f8ET8H5rQTa7510BLQXqGQ2GgCOBwAoAH8A6gE8AZgB7AIUAIAEuER7NjYaAI4BAA0AMRmBBRIxGBBEQgJIKjEAZysiZycGImcjQzYaAUkVJRJEFzEAIiplRBJAAAgxACcFEkEAOCNEIihlRQEURChLAUlOAmexMgqyFCKyErIRJLIQIrIBs4ASVmF1bHQgYm9vdHN0cmFwcGVksCNDIkL/xTEWgQIJSTgQJBJEMRYjCUk4ECMSRCIrZUQUREsBOBEiKGVEEkRLATgUMgoSREw4EkkhBA9EMQAnBEsBUEm9RQEUREsDOAcyChJETwM4CIHo1w8PRE8CFkxLAb8yBilPA1BMFr8nB0xQsCNDMRYjCUk4ECQSRCIrZUQUREk4ESIoZUQSREk4FDIKEkQ4EkkhBA9EMQAnBEsBUEm9RQFESwGIAVtJvkQXSwMIFr8yBilPAlBMFr8WJwdMULAjQzYaAUkVJRJEFyIrZUQURDEASYgBLCcESwFQSb5MFyJMTwJNSUsED0RLAwkWvzIGKUsCUEwWv7EiKGVETLIUSwGyErIRJLIQIrIBsxaACVdJVEhEUkFXOkxQsCNDMRYjCUk4ECQSRDEAIiplRBJAAAgxACcFEkEANCNERwI4ESIoZUQSREk4FDIKEkQiJwZlREw4EggnBkxngA9SRVNFUlZFU19GVU5ERUSwI0MiQv/JNhoBSRUjEkQiUzEAIiplRBJAAAgxACcFEkEACCNEK0sBZyNDIkL/9TYaAUkVgSASRCcESwFQvkwXIkxPAk1JTwIpTFAyBky+TBdMTTIGTAlMQQAeSUEAGksBSYHYBAtLAh0hBZcIFoAEFR98dUxQsCNDSwFC/+8xACIqZUQSQAAIMQAnBRJBAAQjRCNDIkL/+YoBACKAAEknBIv/UEm+TBciTE8CTUlAAAoyBimL/1BMFr+JKYv/UEmMADIGTL5MF0xNMgZMCUmMAUEAHIsEgdgEC4sBHSEFl0mMAkEACosEiwIIFosDTL8yBhaLAEy/iQ==",
+                "apsu": "C4EBQw==",
+                "apgs": {
+                  "nui": 3,
+                  "nbs": 1
+                }
+              }
+            },
+            "application-index": 1217
+          },
+          "app-budget-consumed": 4,
+          "exec-trace": {
+            "approval-program-hash": "Yr3SXdL5L732k4UEGq2lexDB1SfLkOfZhOhqvND3L7w=",
+            "approval-program-trace": [
+              {
+                "pc": 1
+              },
+              {
+                "pc": 16
+              },
+              {
+                "pc": 108,
+                "stack-additions": [
+                  {
+                    "type": 1,
+                    "bytes": "JIfDLA=="
+                  }
+                ]
+              },
+              {
+                "pc": 114
+              }
+            ]
+          }
+        }
+      ],
+      "app-budget-added": 700,
+      "app-budget-consumed": 4,
+      "failed-at": [
+        0
+      ],
+      "failure-message": "transaction ZIHYNFEIWQCO75JIFQBEMYWQRJ4RU4223JQFA3UPMBLZ4U3NVB7A: logic eval error: invalid ApplicationArgs index 0. Details: app=1217, pc=114, opcodes=bytecblock 0x7573646341737365744964 0x62 0x63726561746f72 0x6973506175736564 0x64 0x590c468d9082536942a78955bf11ff34d9b64d1ba8f666ebb86293e61031df53 0x7265736572766542616c616e6365 0x4445504f5349543a; pushbytes 0x2487c32c // 0x2487c32c; txna ApplicationArgs 0"
+    }
+  ],
+  "version": 2,
+  "eval-overrides": {
+    "allow-empty-signatures": true,
+    "fix-signers": true,
+    "max-log-calls": 2048,
+    "max-log-size": 65536
+  },
+  "exec-trace-config": {
+    "enable": true,
+    "scratch-change": true,
+    "stack-change": true,
+    "state-change": true
+  }
+}

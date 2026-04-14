@@ -35,6 +35,7 @@ export class LoanRecord extends arc4.Struct<{
   repaidAt: arc4.Uint64
   amountRepaid: arc4.Uint64
   ttfScore: arc4.Uint64
+  fundedAmount: arc4.Uint64
 }> {}
 
 export class LoanPool extends Contract {
@@ -128,6 +129,7 @@ export class LoanPool extends Contract {
       repaidAt: new arc4.Uint64(0),
       amountRepaid: new arc4.Uint64(0),
       ttfScore: new arc4.Uint64(0),
+      fundedAmount: new arc4.Uint64(0),
     })
 
     this.loans(loanId).value = clone(newLoan)
@@ -210,6 +212,26 @@ export class LoanPool extends Contract {
     this.totalRepaid.value = this.totalRepaid.value + 1
 
     log('LOAN_REPAID')
+  }
+
+  /**
+   * Lenders contribute to a specific Sakhi's loan funding goal.
+   */
+  public fundLoan(loanId: uint64, axfer: gtxn.AssetTransferTxn): void {
+      assert(this.loans(loanId).exists, 'Loan not found')
+      const loan = clone(this.loans(loanId).value)
+      
+      // Status must be Pending (0) or Approved (1)
+      assert(loan.status.asUint64() <= 1, 'Loan already active or repaid')
+      assert(axfer.xferAsset.id === this.usdcAssetId.value, 'Invalid asset')
+      assert(axfer.assetReceiver === Global.currentApplicationAddress, 'Must be to pool')
+
+      // Increment funded amount
+      const currentFunded = loan.fundedAmount.asUint64()
+      loan.fundedAmount = new arc4.Uint64(currentFunded + axfer.assetAmount)
+      
+      this.loans(loanId).value = clone(loan)
+      log(op.concat(Bytes('FUNDED:'), op.itob(loanId)))
   }
 
   /**

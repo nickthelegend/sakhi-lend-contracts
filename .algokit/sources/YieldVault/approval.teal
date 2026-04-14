@@ -4,20 +4,27 @@
 
 main:
     intcblock 0 1 4 8 1000001 105120000000
-    bytecblock "usdcAssetId" "b" "isPaused" "d" "creator" "reserveBalance" "DEPOSIT:"
+    bytecblock "usdcAssetId" "b" "creator" "isPaused" "d" base32(LEGENDMQQJJWSQVHRFK36EP7GTM3MTI3VD3GN25YMKJ6MEBR35JQ) "reserveBalance" "DEPOSIT:"
+
+
+    pushbytes 0x2487c32c
+    txna ApplicationArgs 0
+    match main_deleteApplication_route@2
+
+main_switch_case_next@3:
 
 
     txn OnCompletion
     !
     assert
     txn ApplicationID
-    bz main_create_NoOp@11
+    bz main_create_NoOp@13
     pushbytess 0xa0cadf8a 0x539d0c8a 0x8685c687 0x21f1ddff 0x4fc1f9ad 0xdaef9d74 0xb417a864
     txna ApplicationArgs 0
     match bootstrap depositFirst depositMore withdraw fundReserves setPause getBalance
     err
 
-main_create_NoOp@11:
+main_create_NoOp@13:
 
 
     pushbytes 0xb8447b36
@@ -25,26 +32,37 @@ main_create_NoOp@11:
     match createApplication
     err
 
+main_deleteApplication_route@2:
+
+
+    txn OnCompletion
+    pushint 5
+    ==
+    txn ApplicationID
+    &&
+    assert
+    b deleteApplication
+
 
 
 createApplication:
 
 
-    bytec 4
+    bytec_2
 
 
     txn Sender
     app_global_put
 
 
-    bytec_2
+    bytec_3
 
 
     intc_0
     app_global_put
 
 
-    bytec 5
+    bytec 6
 
 
     intc_0
@@ -72,12 +90,24 @@ bootstrap:
     intc_0
 
 
-    bytec 4
+    bytec_2
 
 
     app_global_get_ex
     assert
     ==
+    bnz bootstrap_bool_true@3
+    txn Sender
+    bytec 5
+    ==
+    bz bootstrap_bool_false@4
+
+bootstrap_bool_true@3:
+    intc_1
+
+bootstrap_bool_merge@5:
+
+
     assert
 
 
@@ -97,6 +127,8 @@ bootstrap:
 
 
     dig 1
+    dup
+    cover 2
     app_global_put
 
 
@@ -145,6 +177,10 @@ bootstrap:
     intc_1
     return
 
+bootstrap_bool_false@4:
+    intc_0
+    b bootstrap_bool_merge@5
+
 
 
 depositFirst:
@@ -171,7 +207,7 @@ depositFirst:
     intc_0
 
 
-    bytec_2
+    bytec_3
 
 
     app_global_get_ex
@@ -212,7 +248,7 @@ depositFirst:
     txn Sender
 
 
-    bytec_3
+    bytec 4
     dig 1
     concat
 
@@ -258,7 +294,7 @@ depositFirst:
     box_put
 
 
-    bytec 6
+    bytec 7
     swap
     concat
     log
@@ -285,7 +321,7 @@ depositMore:
     intc_0
 
 
-    bytec_2
+    bytec_3
 
 
     app_global_get_ex
@@ -325,7 +361,7 @@ depositMore:
     txn Sender
 
 
-    bytec_3
+    bytec 4
     dig 1
     concat
 
@@ -366,7 +402,7 @@ depositMore:
 
 
     itob
-    bytec 6
+    bytec 7
     swap
     concat
     log
@@ -392,7 +428,7 @@ withdraw:
     intc_0
 
 
-    bytec_2
+    bytec_3
 
 
     app_global_get_ex
@@ -408,7 +444,7 @@ withdraw:
     callsub accrueYield
 
 
-    bytec_3
+    bytec 4
     dig 1
     concat
 
@@ -521,16 +557,28 @@ fundReserves:
     intc_0
 
 
-    bytec 4
+    bytec_2
 
 
     app_global_get_ex
     assert
     ==
+    bnz fundReserves_bool_true@3
+    txn Sender
+    bytec 5
+    ==
+    bz fundReserves_bool_false@4
+
+fundReserves_bool_true@3:
+    intc_1
+
+fundReserves_bool_merge@5:
+
+
     assert
 
 
-    dup
+    dupn 2
     gtxns XferAsset
     intc_0
 
@@ -554,7 +602,7 @@ fundReserves:
     intc_0
 
 
-    bytec 5
+    bytec 6
 
 
     app_global_get_ex
@@ -564,7 +612,7 @@ fundReserves:
     +
 
 
-    bytec 5
+    bytec 6
 
 
     swap
@@ -577,6 +625,10 @@ fundReserves:
 
     intc_1
     return
+
+fundReserves_bool_false@4:
+    intc_0
+    b fundReserves_bool_merge@5
 
 
 
@@ -597,24 +649,40 @@ setPause:
     intc_0
 
 
-    bytec 4
+    bytec_2
 
 
     app_global_get_ex
     assert
     ==
+    bnz setPause_bool_true@3
+    txn Sender
+    bytec 5
+    ==
+    bz setPause_bool_false@4
+
+setPause_bool_true@3:
+    intc_1
+
+setPause_bool_merge@5:
+
+
     assert
 
 
-    bytec_2
+    bytec_3
 
 
-    swap
+    dig 1
     app_global_put
 
 
     intc_1
     return
+
+setPause_bool_false@4:
+    intc_0
+    b setPause_bool_merge@5
 
 
 
@@ -629,7 +697,7 @@ getBalance:
     assert
 
 
-    bytec_3
+    bytec 4
     dig 1
     concat
 
@@ -705,6 +773,43 @@ getBalance_after_if_else@4:
 
 
 
+deleteApplication:
+
+
+    txn Sender
+    intc_0
+
+
+    bytec_2
+
+
+    app_global_get_ex
+    assert
+    ==
+    bnz deleteApplication_bool_true@3
+    txn Sender
+    bytec 5
+    ==
+    bz deleteApplication_bool_false@4
+
+deleteApplication_bool_true@3:
+    intc_1
+
+deleteApplication_bool_merge@5:
+
+
+    assert
+
+
+    intc_1
+    return
+
+deleteApplication_bool_false@4:
+    intc_0
+    b deleteApplication_bool_merge@5
+
+
+
 accrueYield:
 
 
@@ -714,7 +819,7 @@ accrueYield:
     dup
 
 
-    bytec_3
+    bytec 4
     frame_dig -1
     concat
     dup
