@@ -1,22 +1,63 @@
-# sakhi-lend-contracts
+# SakhiLend Smart Contracts 🏗️
 
-Welcome to your new AlgoKit project!
+This repository contains the core financial logic for the SakhiLend protocol, built using **Puya TS** (TypeScript-to-TEAL) on the Algorand Virtual Machine (AVM).
 
-This is your workspace root. A `workspace` in AlgoKit is an orchestrated collection of standalone projects (backends, smart contracts, frontend apps and etc).
+## 📊 Protocol Architecture
 
-By default, `projects_root_path` parameter is set to `projects`. Which instructs AlgoKit CLI to create a new directory under `projects` directory when new project is instantiated via `algokit init` at the root of the workspace.
+```mermaid
+graph TD
+    subgraph "On-Chain Protocol (Algorand Testnet)"
+        YV[[YieldVault Contract<br/><i>Accrual Engine</i>]]
+        LP[[LoanPool Contract<br/><i>Lifecycle Manager</i>]]
+        TO[[TrustOracle Contract<br/><i>Risk Assessment</i>]]
+        ASA((Sakhi USDC<br/><i>Core Asset</i>))
+    end
 
-## Getting Started
+    subgraph "Frontend Engine"
+        SH[Simulation Hub<br/><i>Zero-Sig Read Logic</i>]
+        UI[React Dashboards]
+    end
 
-To get started refer to `README.md` files in respective sub-projects in the `projects` directory.
+    UI -->|Deposit| YV
+    UI -->|Loan Request| LP
+    LP -->|Validate| TO
+    SH -->|Simulation| YV
+    SH -->|Simulation| LP
+    YV -.->|Accrued Yield| ASA
+```
 
-To learn more about algokit, visit [documentation](https://github.com/algorandfoundation/algokit-cli/blob/main/docs/algokit.md).
+## 📂 Core Contracts
 
-### GitHub Codespaces
+### 1. [YieldVault](./smart_contracts/yield_vault) (App ID: `758818613`)
+- **Purpose**: Provides automated yield generation for savers.
+- **Logic**: Implements weighted balance tracking. Yield is accrued per block at a fixed 6% APY, ensuring that every "chai-break" earned by a Sakhi is mathematically verifiable on-chain.
+- **Optimization**: Uses Box Storage for user balances to support unlimited scale.
 
-To get started execute:
+### 2. [LoanPool](./smart_contracts/loan_pool) (App ID: `758818609`)
+- **Purpose**: Facilitates P2P microlending.
+- **Flow**: `Request` (Borrower) → `Approve` (Admin/Risk) → `Disburse` (Escrow) → `Repay` (Borrower).
+- **Features**: Supports partial funding and simple interest calculation adjusted for the block-based economy.
 
-1. `algokit generate devcontainer` - invoking this command from the root of this repository will create a `devcontainer.json` file with all the configuration needed to run this project in a GitHub codespace. [Run the repository inside a codespace](https://docs.github.com/en/codespaces/getting-started/quickstart) to get started.
-2. `algokit init` - invoke this command inside a github codespace to launch an interactive wizard to guide you through the process of creating a new AlgoKit project
+### 3. [TrustOracle](./smart_contracts/trust_oracle) (App ID: `758818612`)
+- **Purpose**: Bridges off-chain creditworthiness (Mann Deshi scorecards) to the AVM.
+- **Data Integrity**: Records encrypted hashes of scorecard data, allowing the `LoanPool` to verify risk without exposing PII (Personally Identifiable Information).
 
-Powered by [Copier templates](https://copier.readthedocs.io/en/stable/).
+## 🚀 Deployment & Development
+
+### Local Development
+```bash
+# Start local environment
+algokit localnet start
+
+# Deploy to localnet
+algokit project deploy localnet
+```
+
+### Testnet Production
+Current contracts are active on **Algorand Testnet**:
+- **USDC ID**: `758817439`
+- **Nodes**: `https://testnet-api.algonode.cloud`
+
+## 🛡 Security & Design Patterns
+- **MBR Management**: All box storage costs are covered via prepayments (`mbrPayment`) during the request/deposit phase, ensuring the protocol remains self-sustaining.
+- **Admin Multisig Ready**: Contracts feature gated administrative methods (`approveLoan`, `bootstrap`) authorized via creator-control patterns.
